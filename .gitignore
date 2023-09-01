@@ -9,7 +9,8 @@ utenti/migrations/
 clienti/migrations
 serverenv/
 /serverenv/
-
+servermenv
+/servermenv/
 
 
 

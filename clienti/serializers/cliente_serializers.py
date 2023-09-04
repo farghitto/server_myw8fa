@@ -9,9 +9,9 @@ class ClientiSerializer(serializers.ModelSerializer):
         model = Cliente
         fields = '__all__'
         
-
-class ClienteSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Cliente
-        fields = '__all__'
+    def perform_create(self, serializer):
+        instance = serializer.save()
+        return instance    
         
+
+

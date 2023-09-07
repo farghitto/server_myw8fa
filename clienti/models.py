@@ -94,18 +94,24 @@ class PersonalCheckUpCliente(models.Model):
     data = models.DateField(auto_now_add=True)
     peso = models.FloatField(verbose_name="Peso")
     bmi = models.FloatField(verbose_name="Bmi")
-    grasso_corporeo = models.FloatField(null=True, blank=True, verbose_name="Grasso corporeo")
-    muscolatura = models.FloatField(null=True, blank=True, verbose_name="Muscolatura")     
-    metabolismo = models.FloatField(null=True, blank=True, verbose_name="Metabolismo")
-    grasso_viscerale = models.FloatField(null=True, blank=True, verbose_name="Grasso viscerale")     
+    grasso_corporeo = models.FloatField(
+        null=True, blank=True, verbose_name="Grasso corporeo")
+    muscolatura = models.FloatField(
+        null=True, blank=True, verbose_name="Muscolatura")
+    metabolismo = models.FloatField(
+        null=True, blank=True, verbose_name="Metabolismo")
+    grasso_viscerale = models.FloatField(
+        null=True, blank=True, verbose_name="Grasso viscerale")
     collocm = models.FloatField(verbose_name="Centimetri collo")
     toracecm = models.FloatField(verbose_name="Centimetri torace")
     cosciadxcm = models.FloatField(verbose_name="Centimetri coscia destra")
     cosciasxcm = models.FloatField(verbose_name="Centimetri coscia sinistra")
     fianchicm = models.FloatField(verbose_name="Centimetri fianchi")
     addomecm = models.FloatField(verbose_name="Centimetri addome")
-    ginocchiodxcm = models.FloatField(verbose_name="Centimetri ginocchio destro")
-    ginocchiosxcm = models.FloatField(verbose_name="Centimetri ginocchio sinistro")
+    ginocchiodxcm = models.FloatField(
+        verbose_name="Centimetri ginocchio destro")
+    ginocchiosxcm = models.FloatField(
+        verbose_name="Centimetri ginocchio sinistro")
     peso_ottimale = models.CharField(max_length=6, null=True, blank=True)
     peso_desiderato = models.CharField(max_length=6, null=True, blank=True)
 #     programma = models.ForeignKey(
@@ -113,7 +119,7 @@ class PersonalCheckUpCliente(models.Model):
 
     def __str__(self):
 
-      return self.cliente.cognome + ' ' + str(self.peso)
+        return self.cliente.cognome + ' ' + str(self.peso)
 
 
 # class AnagraficaClienteDati(models.Model):

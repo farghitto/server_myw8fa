@@ -5,13 +5,14 @@
 
 # Node artifact files
 
-utenti/migrations/
+utente/migrations
 clienti/migrations
+utils/migrations
 serverenv/
 /serverenv/
 servermenv
 /servermenv/
-
+utente/migrations
 
 
 # Compiled Java class files

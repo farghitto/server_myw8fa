@@ -30,6 +30,7 @@ class Cliente(models.Model):
     sesso = models.CharField(max_length=1, choices=Sesso)
     note = models.TextField(blank=True, null=True)
     privacy = models.BooleanField(default=False)
+    peso_desiderato = models.CharField(max_length=6, null=True, blank=True)
 
     """ Consulente """
     consulente = models.ForeignKey(
@@ -91,7 +92,7 @@ class PatologieClienti(models.Model):
 class PersonalCheckUpCliente(models.Model):
 
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    data = models.DateField(auto_now_add=True)
+    data = models.DateTimeField(auto_now_add=True)
     peso = models.FloatField(verbose_name="Peso")
     bmi = models.FloatField(verbose_name="Bmi")
     grasso_corporeo = models.FloatField(
@@ -113,7 +114,7 @@ class PersonalCheckUpCliente(models.Model):
     ginocchiosxcm = models.FloatField(
         verbose_name="Centimetri ginocchio sinistro")
     peso_ottimale = models.CharField(max_length=6, null=True, blank=True)
-    peso_desiderato = models.CharField(max_length=6, null=True, blank=True)
+
 #     programma = models.ForeignKey(
 #         to='accordi.Programmi', on_delete=models.CASCADE, blank=True, null=True)
 

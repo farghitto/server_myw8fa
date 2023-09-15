@@ -37,22 +37,23 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     'multiselectfield',
     'widget_tweaks',
     'rest_framework',
     'rest_framework.authtoken',
 
-    
-     'clienti',
-     'utente',
-    
+
+    'clienti',
+    'utente',
+    'utils',
+
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
-    ],}
+    ], }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

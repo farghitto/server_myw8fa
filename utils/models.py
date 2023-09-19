@@ -15,3 +15,10 @@ class Bmiottimale(models.Model):
     class Meta:
         verbose_name = "Bmi ottimale"
         verbose_name_plural = "Bmi ottimale"
+
+
+class StatoPeso(models.Model):
+
+    sesso = models.CharField(max_length=1)
+    bmi = models.CharField(max_length=5)
+    qualitapeso = models.CharField(max_length=20)

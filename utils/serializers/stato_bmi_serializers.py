@@ -1,15 +1,9 @@
 from rest_framework import serializers
-from models import StatoPeso
-
-
+from utils.models import StatoPeso, Bmiottimale
 
 
 class statoPesoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = StatoPeso
+        
+        model = Bmiottimale
         fields = '__all__'
-        
-    
-        
-
-

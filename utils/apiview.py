@@ -8,15 +8,19 @@ from django.shortcuts import get_object_or_404
 from datetime import datetime
 
 from .serializers.stato_bmi_serializers import statoPesoSerializer
+from .serializers.mail_serializers import emailSerializer
 
 from clienti.models import Cliente
-from .models import StatoPeso, Bmiottimale
+from .models import StatoPeso, Bmiottimale, EmailAzienda
 
 # authentication_classes = [TokenAuthentication]
 # permission_classes = [IsAuthenticated]
 
 
 class StatoBmi(generics.RetrieveAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    
     queryset = Bmiottimale.objects.all()
     serializer_class = statoPesoSerializer
 
@@ -34,3 +38,17 @@ class StatoBmi(generics.RetrieveAPIView):
                 
 
         return Response(stato_attuale)
+
+
+class EmailAziendaRetrive(generics.RetrieveAPIView):
+    
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    
+    queryset = EmailAzienda.objects.all()
+    serializer_class = emailSerializer
+    lookup_field = 'id'
+    
+                
+
+        

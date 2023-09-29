@@ -3,13 +3,14 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 from django.shortcuts import get_object_or_404
 
 from .models import Cliente, PersonalCheckUpCliente
 
 from .serializers.cliente_serializers import ClientiSerializer
-from .serializers.misure_serializers import MisureClientiSerializer, CampiMisureSerializer
+from .serializers.misure_serializers import MisureClientiSerializer, CampiMisureSerializer, MisureClientiPesoSerializer
 
 from utils.models import Bmiottimale
 
@@ -108,3 +109,21 @@ class CampiMisureAPI(generics.ListAPIView):
             campo for campo in campi_modello if campo[1] not in campi_da_escludere]
 
         return Response(campi_filtrati, status=status.HTTP_200_OK)
+
+
+class MisuraClientePesoInizialeAPIView(generics.ListAPIView):
+
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    serializer_class = MisureClientiPesoSerializer
+
+    def get(self, request,  id):
+
+        peso = PersonalCheckUpCliente.objects.filter(cliente_id=id).first()
+        if peso is not None:
+            dati_ritorno = {"peso": str(peso.peso)}
+        else:
+            dati_ritorno = {"peso": 'Non disponibile'}
+
+        return Response(dati_ritorno)

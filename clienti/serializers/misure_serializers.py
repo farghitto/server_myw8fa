@@ -12,5 +12,11 @@ class MisureClientiSerializer(serializers.ModelSerializer):
 
 class CampiMisureSerializer(serializers.Serializer):
     class Meta:
-        model = PersonalCheckUpCliente  # Sostituisci 'TuoModello' con il tuo modello reale
+        model = PersonalCheckUpCliente  
         exclude = ['cliente', 'data', 'id', 'peso_ottimale']
+
+
+class MisureClientiPesoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PersonalCheckUpCliente
+        fields = ['peso']

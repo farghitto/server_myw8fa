@@ -63,6 +63,11 @@ class Cliente(models.Model):
     beneficiario_codice_fiscale = models.CharField(
         max_length=16, null=True, blank=True)
 
+    """Utente da collegare nell'app"""
+
+    id_utente_app = models.CharField(max_length=8, null=True, blank=True)
+    lingua_utente = models.CharField(max_length=8, null=True, blank=True)
+
     def __str__(self):
 
         return self.nome + " " + self.cognome

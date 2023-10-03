@@ -50,10 +50,6 @@ class InserisciMisuraClienteAPIView(generics.CreateAPIView):
         # Esegui le modifiche ai dati qui prima di salvarli nel database
         # Ad esempio, puoi modificare i dati in validated_data prima di crearne un'istanza
 
-        # bmi_ottimale = get_object_or_404(Bmiottimale, sesso=cliente.sesso)
-        #     peso_ottimale = round(float(bmi_ottimale.valore)
-        #                           * (pow((float(cliente.altezza)/100), 2)), 2)
-        # # Esempio: Modifica un campo dei dati prima di salvarli
         cliente = get_object_or_404(Cliente, id=serializer.data['cliente'])
         bmi_ottimale = get_object_or_404(Bmiottimale, sesso=cliente.sesso)
         peso_ottimale = round(float(bmi_ottimale.valore)

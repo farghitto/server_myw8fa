@@ -9,7 +9,5 @@ class GruppoListinoSerializer(serializers.ModelSerializer):
         model = GruppoListino
         fields = '__all__'
         
-    def perform_create(self, serializer):
-        instance = serializer.save()
-        return instance    
+  
         

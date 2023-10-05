@@ -22,10 +22,11 @@ from utente.apiview import CustomAuthToken
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('cliente/', include('clienti.urls')),
+    path('listini/', include('listini.urls')),
     path('utente/', include('utente.urls')),
     path('utils/', include('utils.urls')),
-    
-    
+
+
     path('autenticazione', CustomAuthToken.as_view(), name='token_obtain'),
-    
+
 ]

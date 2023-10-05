@@ -45,8 +45,10 @@ INSTALLED_APPS = [
 
 
     'clienti',
+    'consulenti',
     'utente',
     'utils',
+    'listini',
 
 ]
 

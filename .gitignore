@@ -12,7 +12,8 @@ serverenv/
 /serverenv/
 servermenv
 /servermenv/
-utente/migrations
+listini/migrations
+consulenti/migrations
 
 
 # Compiled Java class files

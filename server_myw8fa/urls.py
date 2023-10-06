@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from utente.apiview import CustomAuthToken
+from utente.apiview import CustomAuthToken, LogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,5 +28,5 @@ urlpatterns = [
 
 
     path('autenticazione', CustomAuthToken.as_view(), name='token_obtain'),
-
+    path('logout', LogoutView.as_view(), name='logout'),
 ]

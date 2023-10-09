@@ -12,7 +12,12 @@ class ClientiSerializer(serializers.ModelSerializer):
     def perform_create(self, serializer):
         instance = serializer.save()
         return instance    
+
+
+
+
         
+
 
 
 

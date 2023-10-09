@@ -40,6 +40,7 @@ class Programmi(models.Model):
     programma_amministratore = models.BooleanField(default=False)
     programma_kids = models.BooleanField(default=False)
     programma_rateale = models.BooleanField(default=False)
+    programma_proseguimento = models.BooleanField(default=False)
 
     """informazioni inserimento"""
     data_creazione = models.DateField(auto_now_add=True)

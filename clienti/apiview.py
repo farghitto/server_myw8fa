@@ -123,3 +123,21 @@ class MisuraClientePesoInizialeAPIView(generics.ListAPIView):
             dati_ritorno = {"peso": 'Non disponibile'}
 
         return Response(dati_ritorno)
+
+
+class NuovoClienteAPIView(generics.ListAPIView):
+
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    
+    serializer_class = MisureClientiPesoSerializer
+
+    def get(self, request,  id):
+        
+        risposte = PersonalCheckUpCliente.objects.filter(cliente_id=id).count()
+        if risposte == 1:
+            dati_ritorno = {"misure": 'True'}
+        else:
+            dati_ritorno = {"misure": 'False'}
+
+        return Response(dati_ritorno)

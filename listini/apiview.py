@@ -42,6 +42,8 @@ class ProgrammiListView(generics.ListAPIView):
 
     def get_queryset(self):
 
-        id = self.kwargs['id']
-        queryset = Programmi.objects.filter(gruppo_id=id)
+        listino = get_object_or_404(Struttura, nome='Centro Autorizzato')
+        id = self.request.query_params.get('id')
+        minore = self.request.query_params.get('minore')
+        queryset = Programmi.objects.filter( programma_kids=minore, programma_attivo=True, listino_dedicato=listino, gruppo_id=id)
         return queryset

@@ -8,7 +8,8 @@ class ProgrammaModelAdmin(admin.ModelAdmin):
     model = Programmi
 
     list_display = ["nome_programma", "descrizione_programma", "data_ultima_modifica", "gruppo",
-                    "validita_per_bilanciamento", "programma_attivo", "programma_intero"]
+                    "validita_per_bilanciamento", "programma_attivo", "programma_intero", "programma_proseguimento",
+                    "programma_rateale","programma_kids"]
     search_fields = ["nome_programma", "descrizione_programma"]
 
 

@@ -14,7 +14,10 @@ servermenv
 /servermenv/
 listini/migrations
 consulenti/migrations
-
+static_serve/
+media-serve/
+log/
+gunicorn_start.bash
 
 # Compiled Java class files
 *.class

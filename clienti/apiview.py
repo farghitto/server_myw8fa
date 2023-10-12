@@ -23,9 +23,7 @@ class ClienteListCreateView(generics.ListCreateAPIView):
     queryset = Cliente.objects.all().order_by('cognome')
     serializer_class = ClientiSerializer
 
-    def create(self, validated_data):
-        instance = super().create(validated_data)
-        return instance
+
 
 
 class ClienteRetrieveUpdateAPIView(generics.RetrieveUpdateAPIView):

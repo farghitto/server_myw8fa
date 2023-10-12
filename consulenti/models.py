@@ -10,3 +10,4 @@ class Struttura(models.Model):
 
     class Meta:
         verbose_name = "Struttura Consulente"
+        

@@ -56,3 +56,4 @@ class Programmi(models.Model):
     class Meta:
         verbose_name = "Programma"
         verbose_name_plural = "Programma"
+

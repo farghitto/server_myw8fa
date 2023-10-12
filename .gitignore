@@ -7,6 +7,7 @@
 
 utente/migrations
 clienti/migrations
+ordini/migrations
 utils/migrations
 serverenv/
 /serverenv/

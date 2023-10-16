@@ -7,7 +7,9 @@ class GruppoListino(models.Model):
     nome_gruppo = models.CharField(max_length=30, blank=False, null=False)
     descrizione_gruppo = models.CharField(
         max_length=250, blank=False, null=False)
-    myw8fa_visibilita = models.BooleanField(default=False)
+    visibilta_primo_ordine = models.BooleanField(default=False)
+    visibilita_dopo_prova = models.BooleanField(default=False)
+    visibilta_proseguimento = models.BooleanField(default=False)
 
     def __str__(self):
         return self.nome_gruppo

@@ -96,3 +96,13 @@ class GruppoBoolView(generics.RetrieveAPIView):
         }
 
         return Response(data)
+
+
+class ProgrammaView(generics.RetrieveAPIView):
+
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    serializer_class = ProgrammiSerializer
+    # Sostituisci con il queryset del tuo modello
+    queryset = Programmi.objects.all()

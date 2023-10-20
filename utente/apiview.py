@@ -4,8 +4,12 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
+from rest_framework import generics
 
 from django.contrib.auth import authenticate
+
+from .models import AnagraficaUtente
+from .serializers.utente_serializers import UtenteSerializer
 
 
 class CustomAuthToken(APIView):
@@ -31,3 +35,13 @@ class LogoutView(APIView):
         request.auth.delete()  # Elimina il token di autenticazione personalizzato
 
         return Response(status.HTTP_200_OK)
+
+
+class UtenteListCreateView(generics.RetrieveAPIView):
+
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    queryset = AnagraficaUtente.objects.all()
+    serializer_class = UtenteSerializer
+    lookup_field = 'utente__id'

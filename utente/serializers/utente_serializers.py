@@ -8,3 +8,9 @@ class ClienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = AnagraficaUtente
         fields = '__all__'
+        
+
+class UtenteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AnagraficaUtente
+        fields = '__all__'

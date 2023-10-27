@@ -8,6 +8,9 @@ from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 
 from .models import Cliente, PersonalCheckUpCliente
+from utente.models import AnagraficaUtente
+from django.contrib.auth.models import User
+
 
 from .serializers.cliente_serializers import ClientiSerializer
 from .serializers.misure_serializers import MisureClientiSerializer, CampiMisureSerializer, MisureClientiPesoSerializer
@@ -22,6 +25,15 @@ class ClienteListCreateView(generics.ListCreateAPIView):
 
     queryset = Cliente.objects.all().order_by('cognome')
     serializer_class = ClientiSerializer
+    
+    def perform_create(self, serializer):
+    # Puoi eseguire operazioni personalizzate qui prima di creare l'oggetto
+    # Ad esempio, puoi aggiungere campi extra prima di salvare l'oggetto
+        
+        consulente = get_object_or_404(AnagraficaUtente, utente=self.request.user)
+
+        serializer.save(consulente=consulente)
+
 
 
 
@@ -139,3 +151,4 @@ class NuovoClienteAPIView(generics.ListAPIView):
             dati_ritorno = {"misure": 'False'}
 
         return Response(dati_ritorno)
+    

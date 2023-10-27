@@ -4,6 +4,7 @@ from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.exceptions import NotFound
 
 from dateutil.relativedelta import relativedelta
 
@@ -11,6 +12,7 @@ from django.shortcuts import get_object_or_404
 
 from .models import Ordine, AccordoNumero, Pagamento, Rate
 from clienti.models import Cliente
+from listini.models import Programmi
 
 from .serializers.ordini_serializers import OrdineSerializer, OrdineRataSerializer
 import pdb
@@ -77,16 +79,42 @@ class OrdiniListView(generics.ListAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
+    
     serializer_class = OrdineSerializer
 
     def get_queryset(self):
         # Ottieni l'ID del cliente dalla richiesta
         cliente_id = self.kwargs.get('cliente_id')
-
+        
         # Filtra gli ordini associati al cliente specifico
         queryset = Ordine.objects.filter(
-            cliente_id=cliente_id).order_by('cognome')
+            cliente_id=cliente_id)
         return queryset
+    
+
+ #mostra ultimo ordine di un cliente di un cliente
+
+class OrdineUltimoView(generics.RetrieveAPIView):
+
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    queryset = Ordine.objects.all()
+    serializer_class = OrdineSerializer
+    lookup_field = 'cliente_id'
+
+    def get_object(self):
+        # Ottieni il valore dell'ID del cliente dalla richiesta
+        cliente_id = self.kwargs.get('cliente_id')
+        
+        # Filtra gli ordini associati al cliente specifico e prendi l'ultimo
+        queryset = self.get_queryset()
+        obj = queryset.filter(cliente_id=cliente_id).last()
+        
+        if obj is None:
+            raise NotFound("Nessun ordine trovato per questo cliente")
+        
+        return obj
 
 # mostra un singolo ordine
 
@@ -121,3 +149,41 @@ class NumeroOrdiniClienteView(generics.RetrieveAPIView):
                 return Response({'ordini': 'completo'})
         else:
             return Response({'ordini': 'maggiore_due'})
+
+
+class DettagliOrdineView(generics.RetrieveAPIView):
+
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    queryset = Ordine.objects.all()
+    serializer_class = OrdineSerializer
+    lookup_field = 'id'
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        
+        programma = instance.programma
+        pagamento = get_object_or_404(Pagamento, ordine= instance)
+        if pagamento.tipo_pagamento == 'Rateale':
+            rate = Rate.objects.filter(pagamento=pagamento)
+            importo_acconto = rate[0]['importo_rata']
+            numero_rate = (rate.count()-1)
+            importo_rate = rate[1]['importo_rata']
+            
+        else:
+            importo_acconto = 0
+            numero_rate = 0
+            importo_rate = 0
+            
+        data = {
+            'nome_programma': programma.nome_programma,
+            'durata_programma': programma.durata_programma,
+            'importo_programma' : programma.importo,
+            'tipo': pagamento.tipo_pagamento,
+            'importo_acconto': importo_acconto,
+            'numero_rate': numero_rate,
+            'importo_rate': importo_rate
+        }
+
+        return Response(data)

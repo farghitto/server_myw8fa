@@ -33,8 +33,8 @@ class Cliente(models.Model):
     peso_desiderato = models.CharField(max_length=6, null=True, blank=True)
 
     """ Consulente """
-    consulente = models.ForeignKey(
-        AnagraficaUtente, on_delete=models.SET_NULL, null=True)
+    consulente = models.ForeignKey(to=
+        'utente.AnagraficaUtente', on_delete=models.SET_NULL, null=True)
 
     """ Date modifica """
     data_creazione = models.DateTimeField(auto_now_add=True)

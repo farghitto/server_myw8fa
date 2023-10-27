@@ -28,6 +28,10 @@ class GruppoListinoListView(generics.ListAPIView):
 
         if gruppi_visibili == 'primo_ordine':
             gruppi = GruppoListino.objects.filter(visibilta_primo_ordine=True)
+        elif gruppi_visibili == 'ordine_proseguimento':
+            gruppi = GruppoListino.objects.filter(visibilita_dopo_prova=True)
+        else:
+            gruppi = GruppoListino.objects.filter(visibilta_proseguimento=True)
 
         programmi_validi = Programmi.objects.filter(
             programma_kids=eta, programma_attivo=True, listino_dedicato=listino, gruppo__in=gruppi)

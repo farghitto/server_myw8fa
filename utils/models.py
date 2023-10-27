@@ -53,3 +53,5 @@ class CodiciIva(models.Model):
     class Meta:
         verbose_name = "Codice Iva"
         verbose_name_plural = "Codici Iva"
+
+

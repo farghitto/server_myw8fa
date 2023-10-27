@@ -70,6 +70,7 @@ class AccordoNumeroAffilizaioneCentri(models.Model):
         verbose_name_plural = "Numeri Accordi Corner"
 
 
+
 class Ordine(models.Model):
 
     cliente = models.ForeignKey(
@@ -109,7 +110,7 @@ class Pagamento (models.Model):
         ('Unica Soluzione', 'Unica Soluzione')
     )
 
-    Ordine = models.ForeignKey(
+    ordine = models.ForeignKey(
         to='Ordine', on_delete=models.CASCADE)
     importo = models.DecimalField(max_digits=9, decimal_places=2)
 

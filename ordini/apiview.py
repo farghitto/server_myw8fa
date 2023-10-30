@@ -13,8 +13,11 @@ from django.shortcuts import get_object_or_404
 from .models import Ordine, AccordoNumero, Pagamento, Rate
 from clienti.models import Cliente
 from listini.models import Programmi
+from utente.models import AnagraficaUtente
 
 from .serializers.ordini_serializers import OrdineSerializer, OrdineRataSerializer
+from clienti.serializers.cliente_serializers import ClientiSerializer
+from utente.serializers.utente_serializers import UtenteSerializer
 import pdb
 
 # crea gli ordini e li  mostra tutti
@@ -46,7 +49,7 @@ class OrdiniListCreateView(generics.ListCreateAPIView):
             tipo_pagamento = 'Unica Soluzione'
 
         # creazione Pagamento
-        pagamento = Pagamento(Ordine=serializer.instance, importo=importo_ordine,
+        pagamento = Pagamento(ordine=serializer.instance, importo=importo_ordine,
                               tipo_pagamento=tipo_pagamento, stato_ordine='Non Pagato')
         pagamento.save()
 
@@ -79,20 +82,19 @@ class OrdiniListView(generics.ListAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
-    
     serializer_class = OrdineSerializer
 
     def get_queryset(self):
         # Ottieni l'ID del cliente dalla richiesta
         cliente_id = self.kwargs.get('cliente_id')
-        
+
         # Filtra gli ordini associati al cliente specifico
         queryset = Ordine.objects.filter(
             cliente_id=cliente_id)
         return queryset
-    
 
- #mostra ultimo ordine di un cliente di un cliente
+ # mostra ultimo ordine di un cliente di un cliente
+
 
 class OrdineUltimoView(generics.RetrieveAPIView):
 
@@ -106,14 +108,14 @@ class OrdineUltimoView(generics.RetrieveAPIView):
     def get_object(self):
         # Ottieni il valore dell'ID del cliente dalla richiesta
         cliente_id = self.kwargs.get('cliente_id')
-        
+
         # Filtra gli ordini associati al cliente specifico e prendi l'ultimo
         queryset = self.get_queryset()
         obj = queryset.filter(cliente_id=cliente_id).last()
-        
+
         if obj is None:
             raise NotFound("Nessun ordine trovato per questo cliente")
-        
+
         return obj
 
 # mostra un singolo ordine
@@ -162,28 +164,75 @@ class DettagliOrdineView(generics.RetrieveAPIView):
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
-        
+
         programma = instance.programma
-        pagamento = get_object_or_404(Pagamento, ordine= instance)
+        pagamento = get_object_or_404(Pagamento, ordine=instance)
         if pagamento.tipo_pagamento == 'Rateale':
             rate = Rate.objects.filter(pagamento=pagamento)
             importo_acconto = rate[0]['importo_rata']
             numero_rate = (rate.count()-1)
             importo_rate = rate[1]['importo_rata']
-            
+
         else:
             importo_acconto = 0
             numero_rate = 0
             importo_rate = 0
-            
+
         data = {
             'nome_programma': programma.nome_programma,
             'durata_programma': programma.durata_programma,
-            'importo_programma' : programma.importo,
+            'importo_programma': programma.importo,
             'tipo': pagamento.tipo_pagamento,
             'importo_acconto': importo_acconto,
             'numero_rate': numero_rate,
             'importo_rate': importo_rate
+        }
+
+        return Response(data)
+
+
+class CompilazioneModuloClienteOrdineView(generics.RetrieveAPIView):
+
+    queryset = Cliente.objects.all()
+    lookup_field = 'id'  # Campo utilizzato per recuperare l'oggetto
+
+    def retrieve(self, request, *args, **kwargs):
+        cliente = self.get_object()
+        cliente_serializer = ClientiSerializer(cliente)
+        cliente_json = cliente_serializer.data
+
+        consulente_serializer = UtenteSerializer(cliente.consulente)
+        consulente_json = consulente_serializer.data
+
+        ordine = Ordine.objects.filter(cliente=cliente).last()
+        ordine_serializer = OrdineSerializer(ordine)
+        ordine_json = ordine_serializer.data
+
+        programma = ordine.programma
+        pagamento = get_object_or_404(Pagamento, ordine=ordine)
+        if pagamento.tipo_pagamento == 'Rateale':
+            rate = Rate.objects.filter(pagamento=pagamento)
+            importo_acconto = rate[0]['importo_rata']
+            numero_rate = (rate.count()-1)
+            importo_rate = rate[1]['importo_rata']
+
+        else:
+            importo_acconto = 0
+            numero_rate = 0
+            importo_rate = 0
+
+        data = {
+            'cliente': cliente_json,
+            'ordine': ordine_json,
+            'consulente': consulente_json,
+            'nome_programma': programma.nome_programma,
+            'durata_programma': programma.durata_programma,
+            'importo_programma': programma.importo,
+            'tipo': pagamento.tipo_pagamento,
+            'importo_acconto': importo_acconto,
+            'numero_rate': numero_rate,
+            'importo_rate': importo_rate,
+            'numero_ordine': ordine.numero_ordine.numero_accordo
         }
 
         return Response(data)

@@ -7,7 +7,7 @@ from rest_framework.response import Response
 
 from django.shortcuts import get_object_or_404
 
-from .models import Cliente, PersonalCheckUpCliente
+from .models import Cliente, PersonalCheckUpCliente, DatiModuloInformazioniClienti
 from utente.models import AnagraficaUtente
 from django.contrib.auth.models import User
 
@@ -17,7 +17,7 @@ from .serializers.misure_serializers import MisureClientiSerializer, CampiMisure
 
 from utils.models import Bmiottimale
 
-
+# crea i clienti e ne restituisce la lista
 class ClienteListCreateView(generics.ListCreateAPIView):
 
     authentication_classes = [TokenAuthentication]
@@ -27,17 +27,11 @@ class ClienteListCreateView(generics.ListCreateAPIView):
     serializer_class = ClientiSerializer
     
     def perform_create(self, serializer):
-    # Puoi eseguire operazioni personalizzate qui prima di creare l'oggetto
-    # Ad esempio, puoi aggiungere campi extra prima di salvare l'oggetto
-        
+        #aggiunge il consulente per ora quello che sta accedendo al programma
         consulente = get_object_or_404(AnagraficaUtente, utente=self.request.user)
-
         serializer.save(consulente=consulente)
 
-
-
-
-
+#recupera il cliente in base all'id, lo puo modificare
 class ClienteRetrieveUpdateAPIView(generics.RetrieveUpdateAPIView):
 
     authentication_classes = [TokenAuthentication]
@@ -47,7 +41,7 @@ class ClienteRetrieveUpdateAPIView(generics.RetrieveUpdateAPIView):
     serializer_class = ClientiSerializer
     lookup_field = 'id'  # Campo utilizzato per recuperare l'oggetto
 
-
+#crea un oggetto misure per il cliente
 class InserisciMisuraClienteAPIView(generics.CreateAPIView):
 
     authentication_classes = [TokenAuthentication]
@@ -57,8 +51,6 @@ class InserisciMisuraClienteAPIView(generics.CreateAPIView):
     serializer_class = MisureClientiSerializer
 
     def perform_create(self, serializer):
-        # Esegui le modifiche ai dati qui prima di salvarli nel database
-        # Ad esempio, puoi modificare i dati in validated_data prima di crearne un'istanza
 
         cliente = get_object_or_404(Cliente, id=serializer.data['cliente'])
         bmi_ottimale = get_object_or_404(Bmiottimale, sesso=cliente.sesso)
@@ -151,4 +143,15 @@ class NuovoClienteAPIView(generics.ListAPIView):
             dati_ritorno = {"misure": 'False'}
 
         return Response(dati_ritorno)
+
+#verifica che il cliente abbia il modulo informazioni compilato  
+class VerificaDatiCliente(generics.RetrieveAPIView):
     
+    queryset = DatiModuloInformazioniClienti.objects.all()
+    
+    def retrieve(self, request, cliente_id):
+        try:
+            cliente = DatiModuloInformazioniClienti.objects.get(cliente_id=cliente_id)
+            return Response({'esiste': True}, status=status.HTTP_200_OK)
+        except DatiModuloInformazioniClienti.DoesNotExist:
+            return Response({'esiste': False}, status=status.HTTP_200_OK)

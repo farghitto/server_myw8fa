@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .apiview import InserisciMisuraClienteAPIView, MisuraClienteAPIView, MisuraClientePesoInizialeAPIView
-from .apiview import ClienteListCreateView, ClienteRetrieveUpdateAPIView, NuovoClienteAPIView
+from .apiview import ClienteListCreateView, ClienteRetrieveUpdateAPIView, NuovoClienteAPIView, VerificaDatiCliente
 from .apiview import CampiMisureAPI
 
 app_name = 'clienti'
@@ -14,7 +14,8 @@ urlpatterns = [
          name='cliente_retrieve_update'),
     path('nuovocliente/<int:id>/', NuovoClienteAPIView.as_view(),
          name='cliente_nuvo'),
-    
+    path('clientedati/<int:cliente_id>/', VerificaDatiCliente.as_view(),
+         name='cliente_dati'),
     
     
     path('clientimisure/', InserisciMisuraClienteAPIView.as_view(),

@@ -132,251 +132,251 @@ class PersonalCheckUpCliente(models.Model):
         return self.cliente.cognome + ' ' + str(self.peso)
 
 
-# class AnagraficaClienteDati(models.Model):
+class DatiModuloInformazioniClienti(models.Model):
 
-#     SCELTA = (
+    SCELTA = (
 
-#         (1, 'Si'),
-#         (0, 'No')
-#     )
+        (1, 'Si'),
+        (0, 'No')
+    )
 
-#     SCELTA3 = (
+    SCELTA3 = (
 
-#         (0, 'No'),
-#         (1, 'Si'),
-#         (2, 'A volte')
-#     )
+        (0, 'No'),
+        (1, 'Si'),
+        (2, 'A volte')
+    )
 
-#     CIVILE = (
-#         ('Libero', 'Libero'),
-#         ('Coniugato', 'Coniugato')
-#     )
+    CIVILE = (
+        ('Libero', 'Libero'),
+        ('Coniugato', 'Coniugato')
+    )
 
-#     FISICO = (
-#         ('A', 'A'),
-#         ('B', 'B'),
-#         ('C', 'C'),
-#         ('D', 'D'),
-#         ('E', 'E')
-#     )
+    FISICO = (
+        ('A', 'A'),
+        ('B', 'B'),
+        ('C', 'C'),
+        ('D', 'D'),
+        ('E', 'E')
+    )
 
-#     SCELTADIABETE = (
+    SCELTADIABETE = (
 
-#         ('Tipo 1', 'Tipo 1'),
-#         ('Tipo 2', 'Tipo 2')
-#     )
+        ('Tipo 1', 'Tipo 1'),
+        ('Tipo 2', 'Tipo 2')
+    )
 
-#     MESIGRAVIDANZA = (
-#         ('0', '0'),
-#         ('1', '1'),
-#         ('2', '2'),
-#         ('3', '3'),
-#         ('4', '4'),
-#         ('5', '5'),
-#         ('6', '6'),
-#         ('7', '7'),
-#         ('8', '8'),
-#         ('9', '9')
+    MESIGRAVIDANZA = (
+        ('0', '0'),
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+        ('6', '6'),
+        ('7', '7'),
+        ('8', '8'),
+        ('9', '9')
 
-#     )
+    )
 
-#     GIORNI = (
-#         ('0', '0'),
-#         ('1', '1'),
-#         ('2', '2'),
-#         ('3', '3'),
-#         ('4', '4'),
-#         ('5', '5'),
-#         ('6', '6'),
-#         ('7', '7')
-#     )
+    GIORNI = (
+        ('0', '0'),
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+        ('6', '6'),
+        ('7', '7')
+    )
 
-#     GRUPPO = (
-#         ('N', 'Non so'),
-#         ('0', '0'),
-#         ('A', 'A'),
-#         ('B', 'B'),
-#         ('AB', 'AB')
-#     )
+    GRUPPO = (
+        ('N', 'Non so'),
+        ('0', '0'),
+        ('A', 'A'),
+        ('B', 'B'),
+        ('AB', 'AB')
+    )
 
-#     ALIMENTAZIONE = (
-#         ('Onnivoro', 'Onnivoro'),
-#         ('Vegetariano', 'Vegetariano'),
-#         ('Vegano', 'Vegano')
-#     )
-#     PRESSIONE = (
-#         ('Normale', 'Normale'),
-#         ('Ipoteso', 'Ipoteso'),
-#         ('Iperteso', 'Iperteso')
-#     )
-#     ALIMENTI = (
-#         ('Caffè', 'Caffè'),
-#         ('Pane', 'Pane'),
-#         ('Verdure', 'Verdure'),
-#         ('Carne', 'Carne'),
-#         ('Cereali', 'Cereali'),
-#         ('Cioccolata', 'Cioccolata'),
-#         ('Legumi', 'Legumi'),
-#         ('Alcolici', 'Alcolici'),
-#         ('Pasta', 'Pasta'),
-#         ('Frutta', 'Frutta'),
-#         ('Pesce', 'Pesce'),
-#         ('Dolci', 'Dolci'),
-#         ('Pizza', 'Pizza'),
-#         ('Latticini', 'Latticini')
-#     )
+    ALIMENTAZIONE = (
+        ('Onnivoro', 'Onnivoro'),
+        ('Vegetariano', 'Vegetariano'),
+        ('Vegano', 'Vegano')
+    )
+    PRESSIONE = (
+        ('Normale', 'Normale'),
+        ('Ipoteso', 'Ipoteso'),
+        ('Iperteso', 'Iperteso')
+    )
+    ALIMENTI = (
+        ('Caffè', 'Caffè'),
+        ('Pane', 'Pane'),
+        ('Verdure', 'Verdure'),
+        ('Carne', 'Carne'),
+        ('Cereali', 'Cereali'),
+        ('Cioccolata', 'Cioccolata'),
+        ('Legumi', 'Legumi'),
+        ('Alcolici', 'Alcolici'),
+        ('Pasta', 'Pasta'),
+        ('Frutta', 'Frutta'),
+        ('Pesce', 'Pesce'),
+        ('Dolci', 'Dolci'),
+        ('Pizza', 'Pizza'),
+        ('Latticini', 'Latticini')
+    )
 
-#     SAPORI = (
-#         ('Piccante', 'Piccante'),
-#         ('Dolce', 'Dolce'),
-#         ('Salato', 'Salato'),
-#         ('Amaro', 'Amaro'),
-#         ('Aspro', 'Aspro'),
-#         ('Insipido', 'Insipido')
-#     )
+    SAPORI = (
+        ('Piccante', 'Piccante'),
+        ('Dolce', 'Dolce'),
+        ('Salato', 'Salato'),
+        ('Amaro', 'Amaro'),
+        ('Aspro', 'Aspro'),
+        ('Insipido', 'Insipido')
+    )
 
-#     CAR1 = (
+    CAR1 = (
 
-#         (1, 'Individualista'),
-#         (0, 'Altruista')
-#     )
+        (1, 'Individualista'),
+        (0, 'Altruista')
+    )
 
-#     CAR2 = (
+    CAR2 = (
 
-#         (1, 'Estroverso'),
-#         (0, 'Introverso')
-#     )
+        (1, 'Estroverso'),
+        (0, 'Introverso')
+    )
 
-#     CAR3 = (
+    CAR3 = (
 
-#         (1, 'Ottimista'),
-#         (0, 'Pessimista')
-#     )
+        (1, 'Ottimista'),
+        (0, 'Pessimista')
+    )
 
-#     SFOGO = (
-#         ('Dentro', 'Dentro'),
-#         ('Fuori', 'Fuori'),
-#         ('Non so', 'Non so')
-#     )
+    SFOGO = (
+        ('Dentro', 'Dentro'),
+        ('Fuori', 'Fuori'),
+        ('Non so', 'Non so')
+    )
 
-#     GIORNATA = (
-#         ('Mattina', 'Mattina'),
-#         ('Pomeriggio', 'Pomeriggio'),
-#         ('Sera', 'Sera')
-#     )
+    GIORNATA = (
+        ('Mattina', 'Mattina'),
+        ('Pomeriggio', 'Pomeriggio'),
+        ('Sera', 'Sera')
+    )
 
-#     DETERMINATO = (
-#         (0, '0'),
-#         (1, '1'),
-#         (2, '2'),
-#         (3, '3'),
-#         (4, '4'),
-#         (5, '5'),
-#         (6, '6'),
-#         (7, '7'),
-#         (8, '8'),
-#         (9, '9'),
-#         (10, '10')
-#     )
+    DETERMINATO = (
+        (0, '0'),
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+        (6, '6'),
+        (7, '7'),
+        (8, '8'),
+        (9, '9'),
+        (10, '10')
+    )
 
-#     PASTI = (
-#         (1, 'Sempre'),
-#         (2, 'Colazione'),
-#         (3, 'Pranzo'),
-#         (4, 'Cena'),
-#         (5, 'Mai')
+    PASTI = (
+        (1, 'Sempre'),
+        (2, 'Colazione'),
+        (3, 'Pranzo'),
+        (4, 'Cena'),
+        (5, 'Mai')
 
-#     )
+    )
 
-#     cliente = models.OneToOneField(
-#         Cliente, related_name='cliente', on_delete=models.CASCADE)
-#     provincia_nascita = models.CharField(max_length=50)
-#     stato_nascita = models.CharField(max_length=50)
-#     provincia = models.CharField(max_length=50)
-#     stato = models.CharField(max_length=50)
-#     professione = models.CharField(max_length=50)
-#     stato_civile = models.CharField(
-#         max_length=15, choices=CIVILE, default='Libero')
-#     maggiorenne = models.BooleanField(choices=SCELTA, default=1)
-#     peso_attuale = models.CharField(max_length=5)
-#     altezza = models.CharField(max_length=5)
-#     bmi = models.CharField(max_length=8)
-#     stato_attuale = models.CharField(max_length=20)
-#     peso_ottimale = models.CharField(max_length=5)
-#     scostamento_peso = models.CharField(max_length=7)
-#     peso_desiderato = models.CharField(max_length=5)
-#     struttura_fisica = models.CharField(
-#         max_length=1, choices=FISICO, default='A')
-#     struttura_desiderata = models.CharField(
-#         max_length=1, choices=FISICO, default='A')
-#     pressione_arteriosa = models.CharField(
-#         max_length=10, choices=PRESSIONE, default='Normale')
-#     diabete = models.BooleanField(choices=SCELTA, default=0)
-#     tipo_diabete = models.CharField(
-#         max_length=10, choices=SCELTADIABETE, null=True, blank=True)
-#     menopausa = models.BooleanField(choices=SCELTA, default=0)
-#     gravidanza = models.BooleanField(choices=SCELTA, default=0)
-#     mesi_gravidanza = models.CharField(
-#         max_length=1, choices=MESIGRAVIDANZA, null=True, blank=True)
-#     rapporto_corpo = models.IntegerField(choices=SCELTA3, default=0)
-#     droghe = models.BooleanField(choices=SCELTA, default=0)
-#     allergie = models.BooleanField(choices=SCELTA, default=0)
-#     allergie_elenco = models.CharField(max_length=100, null=True, blank=True)
-#     farmaci = models.BooleanField(choices=SCELTA, default=0)
-#     farmaci_elenco = models.CharField(max_length=100, null=True, blank=True)
-#     sport = models.BooleanField(choices=SCELTA, default=0)
-#     sport_praticato = models.CharField(max_length=30, null=True, blank=True)
-#     sport_praticato_giorni = models.CharField(
-#         max_length=1, choices=GIORNI, null=True, blank=True)
-#     gruppo_sanguigno = models.CharField(
-#         max_length=7, choices=GRUPPO, default='N')
-#     insonnia = models.IntegerField(choices=SCELTA3, default=0)
-#     stitichezza = models.IntegerField(choices=SCELTA3, default=0)
-#     fumo = models.BooleanField(choices=SCELTA, default=0)
-#     numero_sigarette = models.CharField(max_length=3, null=True, blank=True)
-#     delta_numero_sigarette = models.CharField(
-#         max_length=3, null=True, blank=True)
-#     fame_nervosa = models.IntegerField(choices=SCELTA3, default=0)
-#     gengive = models.IntegerField(choices=SCELTA3, default=0)
-#     tatuaggi = models.BooleanField(choices=SCELTA, default=0)
-#     bevi_acqua = models.BooleanField(choices=SCELTA, default=0)
-#     litri_acqua = models.CharField(max_length=5)
-#     filosofia_alimentare = models.CharField(
-#         max_length=15, choices=ALIMENTAZIONE, default=0)
-#     maiale = models.BooleanField(choices=SCELTA, default=0)
-#     figli = models.BooleanField(choices=SCELTA, default=0)
-#     numero_figli = models.CharField(max_length=2, null=True, blank=True)
-#     pasto_condiviso = models.IntegerField(choices=PASTI, null=True, blank=True)
-#     # verifica, un intero non e valido come valore
-#     alimenti_preferiti = MultiSelectField(
-#         choices=ALIMENTI, max_length=20, default=0, null=True, blank=True)
-#     gusti_preferiti = MultiSelectField(
-#         choices=SAPORI,  max_length=20, default=0, null=True, blank=True)
-#     patologie = models.ManyToManyField(PatologieClienti, null=True, blank=True)
-#     problemi_cardiaci = models.BooleanField(choices=SCELTA, default=0)
-#     problem_cardiaci_tipo = models.CharField(
-#         max_length=100, null=True, blank=True)
-#     sicura = models.IntegerField(choices=SCELTA3, default=0)
-#     felice = models.IntegerField(choices=SCELTA3, default=0)
-#     stress = models.IntegerField(choices=SCELTA3, default=0)
-#     paure = models.IntegerField(choices=SCELTA3, default=0)
-#     lutti = models.BooleanField(choices=SCELTA, default=0)
-#     incubi = models.IntegerField(choices=SCELTA3, default=0)
-#     stanco = models.CharField(max_length=14, choices=GIORNATA, default='Sera')
-#     rabbia = models.IntegerField(choices=SCELTA3, default=0)
-#     sfogo = models.CharField(max_length=9, choices=SFOGO, default='Non so')
-#     colpa = models.BooleanField(choices=SCELTA, default=0)
-#     piangi = models.BooleanField(choices=SCELTA, default=0)
-#     carattere1 = models.BooleanField(choices=CAR1, default=0)
-#     carattere2 = models.BooleanField(choices=CAR2, default=0)
-#     carattere3 = models.BooleanField(choices=CAR3, default=0)
-#     determinato = models.IntegerField(choices=DETERMINATO, default=0)
-#     amici_dieta = models.BooleanField(choices=SCELTA, default=0)
-#     note = models.CharField(max_length=100, null=True, blank=True)
+    cliente = models.OneToOneField(
+        Cliente, related_name='cliente', on_delete=models.CASCADE)
+    provincia_nascita = models.CharField(max_length=50)
+    stato_nascita = models.CharField(max_length=50)
+    provincia = models.CharField(max_length=50)
+    stato = models.CharField(max_length=50)
+    professione = models.CharField(max_length=50)
+    stato_civile = models.CharField(
+        max_length=15, choices=CIVILE, default='Libero')
+    maggiorenne = models.BooleanField(choices=SCELTA, default=1)
+    peso_attuale = models.CharField(max_length=5)
+    altezza = models.CharField(max_length=5)
+    bmi = models.CharField(max_length=8)
+    stato_attuale = models.CharField(max_length=20)
+    peso_ottimale = models.CharField(max_length=5)
+    scostamento_peso = models.CharField(max_length=7)
+    peso_desiderato = models.CharField(max_length=5)
+    struttura_fisica = models.CharField(
+        max_length=1, choices=FISICO, default='A')
+    struttura_desiderata = models.CharField(
+        max_length=1, choices=FISICO, default='A')
+    pressione_arteriosa = models.CharField(
+        max_length=10, choices=PRESSIONE, default='Normale')
+    diabete = models.BooleanField(choices=SCELTA, default=0)
+    tipo_diabete = models.CharField(
+        max_length=10, choices=SCELTADIABETE, null=True, blank=True)
+    menopausa = models.BooleanField(choices=SCELTA, default=0)
+    gravidanza = models.BooleanField(choices=SCELTA, default=0)
+    mesi_gravidanza = models.CharField(
+        max_length=1, choices=MESIGRAVIDANZA, null=True, blank=True)
+    rapporto_corpo = models.IntegerField(choices=SCELTA3, default=0)
+    droghe = models.BooleanField(choices=SCELTA, default=0)
+    allergie = models.BooleanField(choices=SCELTA, default=0)
+    allergie_elenco = models.CharField(max_length=100, null=True, blank=True)
+    farmaci = models.BooleanField(choices=SCELTA, default=0)
+    farmaci_elenco = models.CharField(max_length=100, null=True, blank=True)
+    sport = models.BooleanField(choices=SCELTA, default=0)
+    sport_praticato = models.CharField(max_length=30, null=True, blank=True)
+    sport_praticato_giorni = models.CharField(
+        max_length=1, choices=GIORNI, null=True, blank=True)
+    gruppo_sanguigno = models.CharField(
+        max_length=7, choices=GRUPPO, default='N')
+    insonnia = models.IntegerField(choices=SCELTA3, default=0)
+    stitichezza = models.IntegerField(choices=SCELTA3, default=0)
+    fumo = models.BooleanField(choices=SCELTA, default=0)
+    numero_sigarette = models.CharField(max_length=3, null=True, blank=True)
+    delta_numero_sigarette = models.CharField(
+        max_length=3, null=True, blank=True)
+    fame_nervosa = models.IntegerField(choices=SCELTA3, default=0)
+    gengive = models.IntegerField(choices=SCELTA3, default=0)
+    tatuaggi = models.BooleanField(choices=SCELTA, default=0)
+    bevi_acqua = models.BooleanField(choices=SCELTA, default=0)
+    litri_acqua = models.CharField(max_length=5)
+    filosofia_alimentare = models.CharField(
+        max_length=15, choices=ALIMENTAZIONE, default=0)
+    maiale = models.BooleanField(choices=SCELTA, default=0)
+    figli = models.BooleanField(choices=SCELTA, default=0)
+    numero_figli = models.CharField(max_length=2, null=True, blank=True)
+    pasto_condiviso = models.IntegerField(choices=PASTI, null=True, blank=True)
+    # verifica, un intero non e valido come valore
+    alimenti_preferiti = MultiSelectField(
+        choices=ALIMENTI, max_length=20, default=0, null=True, blank=True)
+    gusti_preferiti = MultiSelectField(
+        choices=SAPORI,  max_length=20, default=0, null=True, blank=True)
+    patologie = models.ManyToManyField(PatologieClienti, blank=True)
+    problemi_cardiaci = models.BooleanField(choices=SCELTA, default=0)
+    problem_cardiaci_tipo = models.CharField(
+        max_length=100, null=True, blank=True)
+    sicura = models.IntegerField(choices=SCELTA3, default=0)
+    felice = models.IntegerField(choices=SCELTA3, default=0)
+    stress = models.IntegerField(choices=SCELTA3, default=0)
+    paure = models.IntegerField(choices=SCELTA3, default=0)
+    lutti = models.BooleanField(choices=SCELTA, default=0)
+    incubi = models.IntegerField(choices=SCELTA3, default=0)
+    stanco = models.CharField(max_length=14, choices=GIORNATA, default='Sera')
+    rabbia = models.IntegerField(choices=SCELTA3, default=0)
+    sfogo = models.CharField(max_length=9, choices=SFOGO, default='Non so')
+    colpa = models.BooleanField(choices=SCELTA, default=0)
+    piangi = models.BooleanField(choices=SCELTA, default=0)
+    carattere1 = models.BooleanField(choices=CAR1, default=0)
+    carattere2 = models.BooleanField(choices=CAR2, default=0)
+    carattere3 = models.BooleanField(choices=CAR3, default=0)
+    determinato = models.IntegerField(choices=DETERMINATO, default=0)
+    amici_dieta = models.BooleanField(choices=SCELTA, default=0)
+    note = models.CharField(max_length=100, null=True, blank=True)
 
-#     def __str__(self):
+    def __str__(self):
 
-#         return self.cliente.cognome
+        return self.cliente.cognome
 
 
 # # class DatiBiometrici(models.Model):

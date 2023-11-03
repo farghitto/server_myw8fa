@@ -9,13 +9,14 @@ from rest_framework.exceptions import NotFound
 from dateutil.relativedelta import relativedelta
 
 from django.shortcuts import get_object_or_404
+from django.db.models import Prefetch
 
 from .models import Ordine, AccordoNumero, Pagamento, Rate
 from clienti.models import Cliente
 from listini.models import Programmi
 from utente.models import AnagraficaUtente
 
-from .serializers.ordini_serializers import OrdineSerializer, OrdineRataSerializer
+from .serializers.ordini_serializers import OrdineSerializer, OrdineRataSerializer, OrdineinfoSerializer
 from clienti.serializers.cliente_serializers import ClientiSerializer
 from utente.serializers.utente_serializers import UtenteSerializer
 import pdb
@@ -190,6 +191,8 @@ class DettagliOrdineView(generics.RetrieveAPIView):
 
         return Response(data)
 
+# dati per la compilazione del modulo Informazioni
+
 
 class CompilazioneModuloClienteOrdineView(generics.RetrieveAPIView):
 
@@ -236,3 +239,13 @@ class CompilazioneModuloClienteOrdineView(generics.RetrieveAPIView):
         }
 
         return Response(data)
+
+
+class ListaOrdiniView(generics.ListCreateAPIView):
+
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    serializer_class = OrdineinfoSerializer
+    queryset = Ordine.objects.all()
+    lookup_field = 'consulente_id'

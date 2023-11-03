@@ -1,13 +1,15 @@
 from django.urls import path
 
 from .apiview import OrdiniListCreateView, OrdiniListView, OrdiniDetailView, NumeroOrdiniClienteView, OrdineUltimoView, DettagliOrdineView
-from .apiview import CompilazioneModuloClienteOrdineView
+from .apiview import CompilazioneModuloClienteOrdineView, ListaOrdiniView
 app_name = 'ordini'
 
 
 urlpatterns = [
     # Altri endpoint URL
     path('ordini/', OrdiniListCreateView.as_view(), name='ordini'),
+    path('ordini_lista/<int:consulente_id>',
+         ListaOrdiniView.as_view(), name='ordini_lista'),
     path('ordini/<int:cliente_id>',
          OrdiniListView.as_view(), name='ordini-cliente'),
     path('ordini/ultimo/<int:cliente_id>',

@@ -110,7 +110,7 @@ class Pagamento (models.Model):
         ('Unica Soluzione', 'Unica Soluzione')
     )
 
-    ordine = models.ForeignKey(
+    ordine = models.OneToOneField(
         to='Ordine', on_delete=models.CASCADE)
     importo = models.DecimalField(max_digits=9, decimal_places=2)
 

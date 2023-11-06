@@ -66,11 +66,11 @@ class OrdiniListCreateView(generics.ListCreateAPIView):
             importo_rata = round(
                 (float(importo_ordine) - float(importo_acconto)) / float(numero_rate), 3)
             for i in range(numero_rate):
-                mesi = i - 1
+                mesi = i + 2
                 data_scadenza_nuova = data_scadenza_rata + \
                     relativedelta(months=mesi)
 
-                rata = Rate(pagamento=pagamento, numero_rata=i,
+                rata = Rate(pagamento=pagamento, numero_rata=i+1,
                             importo_rata=importo_rata, data_scadenza_rata=data_scadenza_nuova)
                 rata.save()
 
@@ -215,9 +215,9 @@ class CompilazioneModuloClienteOrdineView(generics.RetrieveAPIView):
         pagamento = get_object_or_404(Pagamento, ordine=ordine)
         if pagamento.tipo_pagamento == 'Rateale':
             rate = Rate.objects.filter(pagamento=pagamento)
-            importo_acconto = rate[0]['importo_rata']
+            importo_acconto = rate[0].importo_rata
             numero_rate = (rate.count()-1)
-            importo_rate = rate[1]['importo_rata']
+            importo_rate = rate[1].importo_rata
 
         else:
             importo_acconto = 0

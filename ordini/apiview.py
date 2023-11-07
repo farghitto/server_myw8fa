@@ -127,9 +127,9 @@ class OrdiniDetailView(generics.RetrieveAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
+    serializer_class = OrdineinfoSerializer
     queryset = Ordine.objects.all()
-    serializer_class = OrdineSerializer
-
+    lookup_field = 'id'
 # dato un cliente devo trovare quanti quanti e che tipo di ordine ha fatto
 
 

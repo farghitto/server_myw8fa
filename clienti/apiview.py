@@ -7,15 +7,15 @@ from rest_framework.response import Response
 
 from django.shortcuts import get_object_or_404
 
-from .models import Cliente, PersonalCheckUpCliente, DatiModuloInformazioniClienti
+from .models import Cliente, PersonalCheckUpCliente, DatiModuloInformazioniClienti, StatoPeso
+from utils.models import Bmiottimale
 from utente.models import AnagraficaUtente
 from django.contrib.auth.models import User
 
 
-from .serializers.cliente_serializers import ClientiSerializer
+from .serializers.cliente_serializers import ClientiSerializer, StatoPesoSerializer
 from .serializers.misure_serializers import MisureClientiSerializer, CampiMisureSerializer, MisureClientiPesoSerializer
 
-from utils.models import Bmiottimale
 
 # crea i clienti e ne restituisce la lista
 class ClienteListCreateView(generics.ListCreateAPIView):
@@ -25,13 +25,16 @@ class ClienteListCreateView(generics.ListCreateAPIView):
 
     queryset = Cliente.objects.all().order_by('cognome')
     serializer_class = ClientiSerializer
-    
+
     def perform_create(self, serializer):
-        #aggiunge il consulente per ora quello che sta accedendo al programma
-        consulente = get_object_or_404(AnagraficaUtente, utente=self.request.user)
+        # aggiunge il consulente per ora quello che sta accedendo al programma
+        consulente = get_object_or_404(
+            AnagraficaUtente, utente=self.request.user)
         serializer.save(consulente=consulente)
 
-#recupera il cliente in base all'id, lo puo modificare
+# recupera il cliente in base all'id, lo puo modificare
+
+
 class ClienteRetrieveUpdateAPIView(generics.RetrieveUpdateAPIView):
 
     authentication_classes = [TokenAuthentication]
@@ -41,7 +44,9 @@ class ClienteRetrieveUpdateAPIView(generics.RetrieveUpdateAPIView):
     serializer_class = ClientiSerializer
     lookup_field = 'id'  # Campo utilizzato per recuperare l'oggetto
 
-#crea un oggetto misure per il cliente
+# crea un oggetto misure per il cliente
+
+
 class InserisciMisuraClienteAPIView(generics.CreateAPIView):
 
     authentication_classes = [TokenAuthentication]
@@ -131,11 +136,11 @@ class NuovoClienteAPIView(generics.ListAPIView):
 
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
-    
+
     serializer_class = MisureClientiPesoSerializer
 
     def get(self, request,  id):
-        
+
         risposte = PersonalCheckUpCliente.objects.filter(cliente_id=id).count()
         if risposte == 1:
             dati_ritorno = {"misure": 'True'}
@@ -144,14 +149,38 @@ class NuovoClienteAPIView(generics.ListAPIView):
 
         return Response(dati_ritorno)
 
-#verifica che il cliente abbia il modulo informazioni compilato  
+# verifica che il cliente abbia il modulo informazioni compilato
+
+
 class VerificaDatiCliente(generics.RetrieveAPIView):
-    
+
     queryset = DatiModuloInformazioniClienti.objects.all()
-    
+
     def retrieve(self, request, cliente_id):
         try:
-            cliente = DatiModuloInformazioniClienti.objects.get(cliente_id=cliente_id)
+            cliente = DatiModuloInformazioniClienti.objects.get(
+                cliente_id=cliente_id)
             return Response({'esiste': True}, status=status.HTTP_200_OK)
         except DatiModuloInformazioniClienti.DoesNotExist:
             return Response({'esiste': False}, status=status.HTTP_200_OK)
+
+
+class StatoPesoAPIView(generics.RetrieveAPIView):
+
+    queryset = StatoPeso.objects.all()
+    serializer_class = StatoPesoSerializer
+
+    def retrieve(self, request):
+
+        sesso = self.request.data.get('sesso')
+        bmi = self.request.data.get('bmi')
+        stati = StatoPeso.objects.filter(sesso=sesso)
+
+        for stato in stati:
+
+            if float(bmi) <= float(stato.bmi):
+
+                stato_attuale = stato.qualitapeso
+                break
+
+        return Response(stato_attuale)

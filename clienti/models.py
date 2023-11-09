@@ -446,11 +446,11 @@ class DatiModuloInformazioniClienti(models.Model):
 #         max_length=1, choices=ALIMENTICLIENTE, default='S')
 
 
-# class StatoPeso(models.Model):
+class StatoPeso(models.Model):
 
-#     sesso = models.CharField(max_length=1)
-#     bmi = models.CharField(max_length=5)
-#     qualitapeso = models.CharField(max_length=20)
+    sesso = models.CharField(max_length=1)
+    bmi = models.CharField(max_length=5)
+    qualitapeso = models.CharField(max_length=20)
 
 
 # class Bmiottimale(models.Model):

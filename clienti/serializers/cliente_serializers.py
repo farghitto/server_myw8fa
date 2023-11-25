@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from clienti.models import Cliente, StatoPeso
+from clienti.models import Cliente, StatoPeso, PatologieClienti
 
 
 class ClientiSerializer(serializers.ModelSerializer):
@@ -11,9 +11,14 @@ class ClientiSerializer(serializers.ModelSerializer):
         instance = serializer.save()
         return instance
 
+
 class StatoPesoSerializer(serializers.ModelSerializer):
     class Meta:
         model = StatoPeso
         fields = '__all__'
 
-    
+
+class PatologieSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PatologieClienti
+        fields = '__all__'

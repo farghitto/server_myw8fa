@@ -7,13 +7,13 @@ from rest_framework.response import Response
 
 from django.shortcuts import get_object_or_404
 
-from .models import Cliente, PersonalCheckUpCliente, DatiModuloInformazioniClienti, StatoPeso
+from .models import Cliente, PersonalCheckUpCliente, DatiModuloInformazioniClienti, StatoPeso, PatologieClienti
 from utils.models import Bmiottimale
 from utente.models import AnagraficaUtente
 from django.contrib.auth.models import User
 
 
-from .serializers.cliente_serializers import ClientiSerializer, StatoPesoSerializer
+from .serializers.cliente_serializers import ClientiSerializer, StatoPesoSerializer, PatologieSerializer
 from .serializers.misure_serializers import MisureClientiSerializer, CampiMisureSerializer, MisureClientiPesoSerializer
 
 
@@ -184,3 +184,12 @@ class StatoPesoAPIView(generics.RetrieveAPIView):
                 break
 
         return Response(stato_attuale)
+
+
+class PatologieListAPIView(generics.ListAPIView):
+
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    serializer_class = PatologieSerializer
+    queryset = PatologieClienti.objects.all()

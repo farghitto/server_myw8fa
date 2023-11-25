@@ -4,6 +4,7 @@ from .apiview import InserisciMisuraClienteAPIView, MisuraClienteAPIView, Misura
 from .apiview import ClienteListCreateView, ClienteRetrieveUpdateAPIView, NuovoClienteAPIView, VerificaDatiCliente
 from .apiview import CampiMisureAPI
 from .apiview import StatoPesoAPIView
+from .apiview import PatologieListAPIView
 
 app_name = 'clienti'
 
@@ -17,7 +18,8 @@ urlpatterns = [
          name='cliente_nuvo'),
     path('clientedati/<int:cliente_id>/', VerificaDatiCliente.as_view(),
          name='cliente_dati'),
-
+   
+    path('listapatologie/', PatologieListAPIView.as_view(), name='pato-list'),
 
     path('clientimisure/', InserisciMisuraClienteAPIView.as_view(),
          name='cliente_misure_create'),
@@ -27,5 +29,6 @@ urlpatterns = [
          name='cliente_retrieve_update'),
     path('api/campi_misure/', CampiMisureAPI.as_view(), name='campi-modello-api'),
     path('api/stati_peso/', StatoPesoAPIView.as_view(), name='stati_peso'),
+    
 
 ]

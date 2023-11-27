@@ -377,73 +377,59 @@ class DatiModuloInformazioniClienti(models.Model):
     determinato = models.IntegerField(choices=DETERMINATO, default=0)
     amici_dieta = models.BooleanField(choices=SCELTA, default=0)
     note = models.CharField(max_length=100, null=True, blank=True)
+    
 
     def __str__(self):
 
         return self.cliente.cognome
 
+class Alimenti(models.Model):
 
-# # class DatiBiometrici(models.Model):
+    CLASSE = (
+        ('Legumi', 'Legumi'),
+        ('Latticini', 'Latticini'),
+        ('Frutta secca', 'Frutta secca'),
+        ('Uovo', 'Uovo'),
+        ('Tacchino', 'Tacchino'),
+        ('Manzo', 'Manzo'),
+        ('Maiale', 'Maiale'),
+        ('Coniglio', 'Coniglio'),
+        ('Vitello', 'Vitello'),
+        ('Agnello', 'Agnello'),
+        ('Frutta', 'Frutta'),
+        ('Verdura', 'Verdura'),
+        ('Pesce', 'Pesce'),
+        ('Pollo', 'Pollo'),
+        ('Crostacei', 'Crostacei'),
+        ('Molluschi', 'Molluschi'),
+    )
 
-# #     dato_biometrico = models.CharField(max_length=50)
+    nome = models.CharField(max_length=50)
+    classe_alimenti = models.CharField(max_length=25, choices=CLASSE)
 
-# #     def __str__(self):
+    def __str__(self):
+        return self.nome
 
-# #         return self.dato_biometrico
-
-# #     class Meta:
-# #         verbose_name = "Dato Biometrico"
-# #         verbose_name_plural = "Dati Biometrici"
-
-
-# # class DatiBiometriciCliente(models.Model):
-
-# #     cliente = models.ForeignKey(AnagraficaCliente, on_delete=models.CASCADE)
-# #     data_creazione = models.DateTimeField(auto_now_add=True)
-# #     valore = models.IntegerField()
-# #     dato_biometrico = models.ForeignKey(
-# #         DatiBiometrici, on_delete=models.CASCADE)
-
-# #     def __str__(self):
-
-# #         return self.cliente
-
-# #     class Meta:
-# #         verbose_name = "Dato Biometrico Cliente"
-# #         verbose_name_plural = "Dati Biometrici Cliente"
-
-
-# class IndirizziClienti(models.Model):
-
-#     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-#     indirizzo = models.CharField(max_length=100)
-#     numero_civico = models.CharField(max_length=5, null=True)
-#     cap = models.CharField(max_length=5)
-#     citta = models.CharField(max_length=25)
-
-#     class Meta:
-#         verbose_name = "Indirizzo Cliente"
-#         verbose_name_plural = "indirizzi Cliente"
-
-#     def __str__(self):
-
-#         return self.cliente.cognome + " " + self.indirizzo + " " + self.numero_civico + " " + self.citta
+    class Meta:
+        verbose_name = "Alimento"
+        verbose_name_plural = "Alimenti"
 
 
-# class GustiClienti(models.Model):
+class GustiClienti(models.Model):
 
-#     ALIMENTICLIENTE = (
-#         ('S', 'PRESENTE'),
-#         ('A', 'ALLERGIA'),
-#         ('I', 'INTOLLERANZA'),
-#         ('N', 'NON GRADITO'),
+    ALIMENTICLIENTE = (
+        ('S', 'PRESENTE'),
+        ('A', 'ALLERGIA'),
+        ('I', 'INTOLLERANZA'),
+        ('N', 'NON GRADITO'),
 
-#     )
+    )
 
-#     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-#     # alimento = models.ForeignKey(Alimenti, on_delete=models.CASCADE)
-#     specifica = models.CharField(
-#         max_length=1, choices=ALIMENTICLIENTE, default='S')
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    alimento = models.ForeignKey(Alimenti, on_delete=models.CASCADE)
+    specifica = models.CharField(
+        max_length=1, choices=ALIMENTICLIENTE, default='S')
+    data_inserimento = models.DateTimeField(auto_now_add=True)
 
 
 class StatoPeso(models.Model):

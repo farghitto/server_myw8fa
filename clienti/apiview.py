@@ -193,11 +193,12 @@ class PatologieListAPIView(generics.ListAPIView):
 
     serializer_class = PatologieSerializer
     queryset = PatologieClienti.objects.all()
-    
+
+
 class AlimentiListAPIView(generics.ListAPIView):
 
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
     serializer_class = AlimentiSerializer
-    queryset = Alimenti.objects.all()
+    queryset = Alimenti.objects.all().order_by('classe_alimenti', 'nome')

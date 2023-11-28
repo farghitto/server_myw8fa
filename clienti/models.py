@@ -33,12 +33,12 @@ class Cliente(models.Model):
     email = models.EmailField(max_length=150)
     sesso = models.CharField(max_length=1, choices=Sesso)
     note = models.TextField(blank=True, null=True)
-    
+
     peso_desiderato = models.CharField(max_length=6, null=True, blank=True)
 
     """ Consulente """
-    consulente = models.ForeignKey(to=
-        'utente.AnagraficaUtente', on_delete=models.SET_NULL, null=True)
+    consulente = models.ForeignKey(
+        to='utente.AnagraficaUtente', on_delete=models.SET_NULL, null=True)
 
     """ Date modifica """
     data_creazione = models.DateTimeField(auto_now_add=True)
@@ -66,9 +66,9 @@ class Cliente(models.Model):
         max_length=15, null=True, blank=True)
     beneficiario_codice_fiscale = models.CharField(
         max_length=16, null=True, blank=True)
-    
+
     """Compilazione allegati"""
-    
+
     compilazione_pcu = models.BooleanField(default=False)
     privacy = models.BooleanField(default=False)
     """Utente da collegare nell'app"""
@@ -138,160 +138,6 @@ class PersonalCheckUpCliente(models.Model):
 
 class DatiModuloInformazioniClienti(models.Model):
 
-    SCELTA = (
-
-        (1, 'Si'),
-        (0, 'No')
-    )
-
-    SCELTA3 = (
-
-        (0, 'No'),
-        (1, 'Si'),
-        (2, 'A volte')
-    )
-
-    CIVILE = (
-        ('Libero', 'Libero'),
-        ('Coniugato', 'Coniugato')
-    )
-
-    FISICO = (
-        ('A', 'A'),
-        ('B', 'B'),
-        ('C', 'C'),
-        ('D', 'D'),
-        ('E', 'E')
-    )
-
-    SCELTADIABETE = (
-
-        ('Tipo 1', 'Tipo 1'),
-        ('Tipo 2', 'Tipo 2')
-    )
-
-    MESIGRAVIDANZA = (
-        ('0', '0'),
-        ('1', '1'),
-        ('2', '2'),
-        ('3', '3'),
-        ('4', '4'),
-        ('5', '5'),
-        ('6', '6'),
-        ('7', '7'),
-        ('8', '8'),
-        ('9', '9')
-
-    )
-
-    GIORNI = (
-        ('0', '0'),
-        ('1', '1'),
-        ('2', '2'),
-        ('3', '3'),
-        ('4', '4'),
-        ('5', '5'),
-        ('6', '6'),
-        ('7', '7')
-    )
-
-    GRUPPO = (
-        ('N', 'Non so'),
-        ('0', '0'),
-        ('A', 'A'),
-        ('B', 'B'),
-        ('AB', 'AB')
-    )
-
-    ALIMENTAZIONE = (
-        ('Onnivoro', 'Onnivoro'),
-        ('Vegetariano', 'Vegetariano'),
-        ('Vegano', 'Vegano')
-    )
-    PRESSIONE = (
-        ('Normale', 'Normale'),
-        ('Ipoteso', 'Ipoteso'),
-        ('Iperteso', 'Iperteso')
-    )
-    ALIMENTI = (
-        ('Caffè', 'Caffè'),
-        ('Pane', 'Pane'),
-        ('Verdure', 'Verdure'),
-        ('Carne', 'Carne'),
-        ('Cereali', 'Cereali'),
-        ('Cioccolata', 'Cioccolata'),
-        ('Legumi', 'Legumi'),
-        ('Alcolici', 'Alcolici'),
-        ('Pasta', 'Pasta'),
-        ('Frutta', 'Frutta'),
-        ('Pesce', 'Pesce'),
-        ('Dolci', 'Dolci'),
-        ('Pizza', 'Pizza'),
-        ('Latticini', 'Latticini')
-    )
-
-    SAPORI = (
-        ('Piccante', 'Piccante'),
-        ('Dolce', 'Dolce'),
-        ('Salato', 'Salato'),
-        ('Amaro', 'Amaro'),
-        ('Aspro', 'Aspro'),
-        ('Insipido', 'Insipido')
-    )
-
-    CAR1 = (
-
-        (1, 'Individualista'),
-        (0, 'Altruista')
-    )
-
-    CAR2 = (
-
-        (1, 'Estroverso'),
-        (0, 'Introverso')
-    )
-
-    CAR3 = (
-
-        (1, 'Ottimista'),
-        (0, 'Pessimista')
-    )
-
-    SFOGO = (
-        ('Dentro', 'Dentro'),
-        ('Fuori', 'Fuori'),
-        ('Non so', 'Non so')
-    )
-
-    GIORNATA = (
-        ('Mattina', 'Mattina'),
-        ('Pomeriggio', 'Pomeriggio'),
-        ('Sera', 'Sera')
-    )
-
-    DETERMINATO = (
-        (0, '0'),
-        (1, '1'),
-        (2, '2'),
-        (3, '3'),
-        (4, '4'),
-        (5, '5'),
-        (6, '6'),
-        (7, '7'),
-        (8, '8'),
-        (9, '9'),
-        (10, '10')
-    )
-
-    PASTI = (
-        (1, 'Sempre'),
-        (2, 'Colazione'),
-        (3, 'Pranzo'),
-        (4, 'Cena'),
-        (5, 'Mai')
-
-    )
-
     cliente = models.OneToOneField(
         Cliente, related_name='cliente', on_delete=models.CASCADE)
     provincia_nascita = models.CharField(max_length=50)
@@ -299,9 +145,8 @@ class DatiModuloInformazioniClienti(models.Model):
     provincia = models.CharField(max_length=50)
     stato = models.CharField(max_length=50)
     professione = models.CharField(max_length=50)
-    stato_civile = models.CharField(
-        max_length=15, choices=CIVILE, default='Libero')
-    maggiorenne = models.BooleanField(choices=SCELTA, default=1)
+    stato_civile = models.CharField(max_length=15)
+    maggiorenne = models.CharField(max_length=5)
     peso_attuale = models.CharField(max_length=5)
     altezza = models.CharField(max_length=5)
     bmi = models.CharField(max_length=8)
@@ -309,79 +154,71 @@ class DatiModuloInformazioniClienti(models.Model):
     peso_ottimale = models.CharField(max_length=5)
     scostamento_peso = models.CharField(max_length=7)
     peso_desiderato = models.CharField(max_length=5)
-    struttura_fisica = models.CharField(
-        max_length=1, choices=FISICO, default='A')
-    struttura_desiderata = models.CharField(
-        max_length=1, choices=FISICO, default='A')
-    pressione_arteriosa = models.CharField(
-        max_length=10, choices=PRESSIONE, default='Normale')
-    diabete = models.BooleanField(choices=SCELTA, default=0)
-    tipo_diabete = models.CharField(
-        max_length=10, choices=SCELTADIABETE, null=True, blank=True)
-    menopausa = models.BooleanField(choices=SCELTA, default=0)
-    gravidanza = models.BooleanField(choices=SCELTA, default=0)
-    mesi_gravidanza = models.CharField(
-        max_length=1, choices=MESIGRAVIDANZA, null=True, blank=True)
-    rapporto_corpo = models.IntegerField(choices=SCELTA3, default=0)
-    droghe = models.BooleanField(choices=SCELTA, default=0)
-    allergie = models.BooleanField(choices=SCELTA, default=0)
-    allergie_elenco = models.CharField(max_length=100, null=True, blank=True)
-    farmaci = models.BooleanField(choices=SCELTA, default=0)
-    farmaci_elenco = models.CharField(max_length=100, null=True, blank=True)
-    sport = models.BooleanField(choices=SCELTA, default=0)
-    sport_praticato = models.CharField(max_length=30, null=True, blank=True)
+    struttura_fisica = models.CharField(max_length=1)
+    struttura_desiderata = models.CharField(max_length=1)
+    pressione_arteriosa = models.CharField(max_length=10)
+    diabete = models.CharField(max_length=5)
+    tipo_diabete = models.CharField(max_length=10, null=True, blank=True)
+    menopausa = models.CharField(max_length=5, null=True, blank=True)
+    gravidanza = models.CharField(max_length=5, null=True, blank=True)
+    mesi_gravidanza = models.CharField(max_length=5, null=True, blank=True)
+    rapporto_corpo = models.CharField(max_length=10)
+    droghe = models.CharField(max_length=5)
+    allergie = models.CharField(max_length=5)
+    allergie_elenco = models.CharField(max_length=1000, null=True, blank=True)
+    farmaci = models.CharField(max_length=5)
+    farmaci_elenco = models.CharField(max_length=1000, null=True, blank=True)
+    sport = models.CharField(max_length=5)
+    sport_praticato = models.CharField(max_length=300, null=True, blank=True)
     sport_praticato_giorni = models.CharField(
-        max_length=1, choices=GIORNI, null=True, blank=True)
-    gruppo_sanguigno = models.CharField(
-        max_length=7, choices=GRUPPO, default='N')
-    insonnia = models.IntegerField(choices=SCELTA3, default=0)
-    stitichezza = models.IntegerField(choices=SCELTA3, default=0)
-    fumo = models.BooleanField(choices=SCELTA, default=0)
+        max_length=5, null=True, blank=True)
+    gruppo_sanguigno = models.CharField(max_length=7)
+    insonnia = models.CharField(max_length=5)
+    stitichezza = models.CharField(max_length=5)
+    fumo = models.CharField(max_length=5)
     numero_sigarette = models.CharField(max_length=3, null=True, blank=True)
     delta_numero_sigarette = models.CharField(
         max_length=3, null=True, blank=True)
-    fame_nervosa = models.IntegerField(choices=SCELTA3, default=0)
-    gengive = models.IntegerField(choices=SCELTA3, default=0)
-    tatuaggi = models.BooleanField(choices=SCELTA, default=0)
-    bevi_acqua = models.BooleanField(choices=SCELTA, default=0)
+    fame_nervosa = models.CharField(max_length=5)
+    gengive = models.CharField(max_length=5)
+    tatuaggi = models.CharField(max_length=5)
+    bevi_acqua = models.CharField(max_length=5)
     litri_acqua = models.CharField(max_length=5)
-    filosofia_alimentare = models.CharField(
-        max_length=15, choices=ALIMENTAZIONE, default=0)
-    maiale = models.BooleanField(choices=SCELTA, default=0)
-    figli = models.BooleanField(choices=SCELTA, default=0)
+    filosofia_alimentare = models.CharField(max_length=20)
+    maiale = models.CharField(max_length=5)
+    figli = models.CharField(max_length=5)
     numero_figli = models.CharField(max_length=2, null=True, blank=True)
-    pasto_condiviso = models.IntegerField(choices=PASTI, null=True, blank=True)
+    pasto_condiviso = models.CharField(max_length=10, null=True, blank=True)
     # verifica, un intero non e valido come valore
-    alimenti_preferiti = MultiSelectField(
-        choices=ALIMENTI, max_length=20, default=0, null=True, blank=True)
-    gusti_preferiti = MultiSelectField(
-        choices=SAPORI,  max_length=20, default=0, null=True, blank=True)
+    alimenti_preferiti = models.TextField(blank=True, null=True)
+    gusti_preferiti = models.TextField(blank=True, null=True)
     patologie = models.ManyToManyField(PatologieClienti, blank=True)
-    problemi_cardiaci = models.BooleanField(choices=SCELTA, default=0)
+    problemi_cardiaci = models.models.CharField(max_length=5)
     problem_cardiaci_tipo = models.CharField(
         max_length=100, null=True, blank=True)
-    sicura = models.IntegerField(choices=SCELTA3, default=0)
-    felice = models.IntegerField(choices=SCELTA3, default=0)
-    stress = models.IntegerField(choices=SCELTA3, default=0)
-    paure = models.IntegerField(choices=SCELTA3, default=0)
-    lutti = models.BooleanField(choices=SCELTA, default=0)
-    incubi = models.IntegerField(choices=SCELTA3, default=0)
-    stanco = models.CharField(max_length=14, choices=GIORNATA, default='Sera')
-    rabbia = models.IntegerField(choices=SCELTA3, default=0)
-    sfogo = models.CharField(max_length=9, choices=SFOGO, default='Non so')
-    colpa = models.BooleanField(choices=SCELTA, default=0)
-    piangi = models.BooleanField(choices=SCELTA, default=0)
-    carattere1 = models.BooleanField(choices=CAR1, default=0)
-    carattere2 = models.BooleanField(choices=CAR2, default=0)
-    carattere3 = models.BooleanField(choices=CAR3, default=0)
-    determinato = models.IntegerField(choices=DETERMINATO, default=0)
-    amici_dieta = models.BooleanField(choices=SCELTA, default=0)
+    sicura = models.CharField(max_length=9)
+    felice = models.CharField(max_length=9)
+    stress = models.CharField(max_length=9)
+    paure = models.CharField(max_length=9)
+    lutti = models.CharField(max_length=9)
+    incubi = models.CharField(max_length=9)
+    stanco = models.CharField(max_length=14)
+    rabbia = models.CharField(max_length=9)
+    sfogo = models.CharField(max_length=9)
+    colpa = models.CharField(max_length=9)
+    piangi = models.CharField(max_length=9)
+    carattere1 = models.CharField(max_length=9)
+    carattere2 = models.CharField(max_length=9)
+    carattere3 = models.CharField(max_length=9)
+    determinato = models.CharField(max_length=9)
+    amici_dieta = models.CharField(max_length=9)
     note = models.CharField(max_length=100, null=True, blank=True)
-    
+    firmato = models.BooleanField(default=0)
 
     def __str__(self):
 
         return self.cliente.cognome
+
 
 class Alimenti(models.Model):
 

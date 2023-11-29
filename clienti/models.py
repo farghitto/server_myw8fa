@@ -193,7 +193,7 @@ class DatiModuloInformazioniClienti(models.Model):
     alimenti_preferiti = models.TextField(blank=True, null=True)
     gusti_preferiti = models.TextField(blank=True, null=True)
     patologie = models.ManyToManyField(PatologieClienti, blank=True)
-    problemi_cardiaci = models.models.CharField(max_length=5)
+    problemi_cardiaci =  models.CharField(max_length=5)
     problem_cardiaci_tipo = models.CharField(
         max_length=100, null=True, blank=True)
     sicura = models.CharField(max_length=9)

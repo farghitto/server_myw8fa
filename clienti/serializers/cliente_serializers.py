@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from clienti.models import Cliente, StatoPeso, PatologieClienti, Alimenti
+from clienti.models import Cliente, StatoPeso, PatologieClienti, Alimenti, DatiModuloInformazioniClienti
 
 
 class ClientiSerializer(serializers.ModelSerializer):
@@ -27,4 +27,10 @@ class PatologieSerializer(serializers.ModelSerializer):
 class AlimentiSerializer(serializers.ModelSerializer):
     class Meta:
         model = Alimenti
+        fields = '__all__'
+        
+
+class InformazioniClientiSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DatiModuloInformazioniClienti
         fields = '__all__'

@@ -13,7 +13,7 @@ from utente.models import AnagraficaUtente
 from django.contrib.auth.models import User
 
 
-from .serializers.cliente_serializers import ClientiSerializer, StatoPesoSerializer, PatologieSerializer, AlimentiSerializer, InformazioniClientiSerializer
+from .serializers.cliente_serializers import ClientiSerializer, StatoPesoSerializer, PatologieSerializer, AlimentiSerializer, InformazioniClientiSerializer, InformazioniClientiGustiSerializer
 from .serializers.misure_serializers import MisureClientiSerializer, CampiMisureSerializer, MisureClientiPesoSerializer
 
 
@@ -212,3 +212,13 @@ class InformazioniClientiCreateAPIView(generics.CreateAPIView):
 
     serializer_class = InformazioniClientiSerializer
     queryset = DatiModuloInformazioniClienti.objects.all()
+
+
+class InformazioniClientiGustiAPIView(generics.RetrieveAPIView):
+
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    serializer_class = InformazioniClientiGustiSerializer
+    queryset = DatiModuloInformazioniClienti.objects.all()
+    lookup_field = 'cliente_id'

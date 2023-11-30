@@ -4,7 +4,7 @@ from .apiview import InserisciMisuraClienteAPIView, MisuraClienteAPIView, Misura
 from .apiview import ClienteListCreateView, ClienteRetrieveUpdateAPIView, NuovoClienteAPIView, VerificaDatiCliente
 from .apiview import CampiMisureAPI
 from .apiview import StatoPesoAPIView
-from .apiview import PatologieListAPIView, AlimentiListAPIView, InformazioniClientiCreateAPIView
+from .apiview import PatologieListAPIView, AlimentiListAPIView, InformazioniClientiCreateAPIView, InformazioniClientiGustiAPIView
 
 app_name = 'clienti'
 
@@ -23,6 +23,8 @@ urlpatterns = [
     path('listaalimenti/', AlimentiListAPIView.as_view(), name='alimenti-list'),
     
     path('inserisciinfo/', InformazioniClientiCreateAPIView.as_view(), name='info_create'),
+
+    path('gusti/<int:cliente_id>/', InformazioniClientiGustiAPIView.as_view(), name='gusti'),
 
     path('clientimisure/', InserisciMisuraClienteAPIView.as_view(),
          name='cliente_misure_create'),

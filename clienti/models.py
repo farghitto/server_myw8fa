@@ -140,10 +140,6 @@ class DatiModuloInformazioniClienti(models.Model):
 
     cliente = models.OneToOneField(
         Cliente, related_name='cliente', on_delete=models.CASCADE)
-    provincia_nascita = models.CharField(max_length=50)
-    stato_nascita = models.CharField(max_length=50)
-    provincia = models.CharField(max_length=50)
-    stato = models.CharField(max_length=50)
     professione = models.CharField(max_length=50)
     stato_civile = models.CharField(max_length=15)
     maggiorenne = models.CharField(max_length=5)
@@ -207,9 +203,9 @@ class DatiModuloInformazioniClienti(models.Model):
     sfogo = models.CharField(max_length=9)
     colpa = models.CharField(max_length=9)
     piangi = models.CharField(max_length=9)
-    carattere1 = models.CharField(max_length=9)
-    carattere2 = models.CharField(max_length=9)
-    carattere3 = models.CharField(max_length=9)
+    carattere1 = models.CharField(max_length=20)
+    carattere2 = models.CharField(max_length=20)
+    carattere3 = models.CharField(max_length=20)
     determinato = models.CharField(max_length=9)
     amici_dieta = models.CharField(max_length=9)
     note = models.CharField(max_length=100, null=True, blank=True)

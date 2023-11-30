@@ -34,3 +34,10 @@ class InformazioniClientiSerializer(serializers.ModelSerializer):
     class Meta:
         model = DatiModuloInformazioniClienti
         fields = '__all__'
+        
+        
+        
+class InformazioniClientiGustiSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DatiModuloInformazioniClienti
+        fields = ['filosofia_alimentare', 'maiale']

@@ -7,15 +7,15 @@ from rest_framework.response import Response
 
 from django.shortcuts import get_object_or_404
 
-from .models import Alimenti, Cliente, PersonalCheckUpCliente, DatiModuloInformazioniClienti, StatoPeso, PatologieClienti, DatiModuloInformazioniClienti
+from .models import Alimenti, Cliente, PersonalCheckUpCliente, DatiModuloInformazioniClienti, StatoPeso, PatologieClienti, DatiModuloInformazioniClienti, GustiClienti
 from utils.models import Bmiottimale
 from utente.models import AnagraficaUtente
 from django.contrib.auth.models import User
 
 
-from .serializers.cliente_serializers import ClientiSerializer, StatoPesoSerializer, PatologieSerializer, AlimentiSerializer, InformazioniClientiSerializer, InformazioniClientiGustiSerializer
+from .serializers.cliente_serializers import ClientiSerializer, StatoPesoSerializer, PatologieSerializer, AlimentiSerializer
 from .serializers.misure_serializers import MisureClientiSerializer, CampiMisureSerializer, MisureClientiPesoSerializer
-
+from .serializers.cliente_serializers import  InformazioniClientiSerializer, InformazioniClientiGustiSerializer, GustiClientiSerializer
 
 # crea i clienti e ne restituisce la lista
 class ClienteListCreateView(generics.ListCreateAPIView):
@@ -222,3 +222,12 @@ class InformazioniClientiGustiAPIView(generics.RetrieveAPIView):
     serializer_class = InformazioniClientiGustiSerializer
     queryset = DatiModuloInformazioniClienti.objects.all()
     lookup_field = 'cliente_id'
+    
+
+class ClientiGustiCreateAPIView(generics.CreateAPIView):
+
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    serializer_class = GustiClientiSerializer
+    queryset = GustiClienti.objects.all()

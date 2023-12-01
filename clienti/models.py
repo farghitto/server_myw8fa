@@ -250,18 +250,10 @@ class Alimenti(models.Model):
 
 class GustiClienti(models.Model):
 
-    ALIMENTICLIENTE = (
-        ('S', 'PRESENTE'),
-        ('A', 'ALLERGIA'),
-        ('I', 'INTOLLERANZA'),
-        ('N', 'NON GRADITO'),
-
-    )
 
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     alimento = models.ForeignKey(Alimenti, on_delete=models.CASCADE)
-    specifica = models.CharField(
-        max_length=1, choices=ALIMENTICLIENTE, default='S')
+    allergia = models.BooleanField(default=0)
     data_inserimento = models.DateTimeField(auto_now_add=True)
 
 

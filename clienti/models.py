@@ -211,9 +211,15 @@ class DatiModuloInformazioniClienti(models.Model):
     note = models.CharField(max_length=100, null=True, blank=True)
     firmato = models.BooleanField(default=0)
 
+    
     def __str__(self):
 
-        return self.cliente.cognome
+        return self.cliente.nome + " " + self.cliente.cognome
+
+    class Meta:
+        verbose_name = "Cliente_Misure"
+        verbose_name_plural = "Clienti_Misure"
+
 
 
 class Alimenti(models.Model):

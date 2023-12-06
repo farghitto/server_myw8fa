@@ -12,12 +12,12 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Prefetch
 
 from .models import Ordine, AccordoNumero, Pagamento, Rate
-from clienti.models import Cliente
+from clienti.models import Cliente, DatiModuloInformazioniClienti, PatologieClienti
 from listini.models import Programmi
 from utente.models import AnagraficaUtente
 
 from .serializers.ordini_serializers import OrdineSerializer, OrdineRataSerializer, OrdineinfoSerializer
-from clienti.serializers.cliente_serializers import ClientiSerializer
+from clienti.serializers.cliente_serializers import ClientiSerializer, InformazioniClientiSerializer
 from utente.serializers.utente_serializers import UtenteSerializer
 import pdb
 
@@ -249,3 +249,5 @@ class ListaOrdiniView(generics.ListCreateAPIView):
     serializer_class = OrdineinfoSerializer
     queryset = Ordine.objects.all()
     lookup_field = 'consulente_id'
+
+

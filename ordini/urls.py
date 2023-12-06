@@ -2,6 +2,7 @@ from django.urls import path
 
 from .apiview import OrdiniListCreateView, OrdiniListView, OrdiniDetailView, NumeroOrdiniClienteView, OrdineUltimoView, DettagliOrdineView
 from .apiview import CompilazioneModuloClienteOrdineView, ListaOrdiniView
+from .apiview import CompilazioneModuloClienteInformazioniView
 app_name = 'ordini'
 
 
@@ -17,6 +18,10 @@ urlpatterns = [
     path('ordine/<int:id>', OrdiniDetailView.as_view(), name='ordine'),
     path('tipo_ordini/<int:id>', NumeroOrdiniClienteView.as_view(), name='ordine'),
     path('dettagli/<int:id>', DettagliOrdineView.as_view(), name='ordine_dettagli'),
+    
     path('datiordinepdf/<int:id>',
-         CompilazioneModuloClienteOrdineView.as_view(), name='ordine_dettaglipdf')
+         CompilazioneModuloClienteOrdineView.as_view(), name='ordine_dettaglipdf'),
+    
 ]
+    
+

@@ -10,12 +10,14 @@ from django.shortcuts import get_object_or_404
 from .models import Alimenti, Cliente, PersonalCheckUpCliente, DatiModuloInformazioniClienti, StatoPeso, PatologieClienti, DatiModuloInformazioniClienti, GustiClienti
 from utils.models import Bmiottimale
 from utente.models import AnagraficaUtente
+from ordini.models import Ordine
 from django.contrib.auth.models import User
 
 
 from .serializers.cliente_serializers import ClientiSerializer, StatoPesoSerializer, PatologieSerializer, AlimentiSerializer
 from .serializers.misure_serializers import MisureClientiSerializer, CampiMisureSerializer, MisureClientiPesoSerializer
 from .serializers.cliente_serializers import  InformazioniClientiSerializer, InformazioniClientiGustiSerializer, GustiClientiSerializer
+from ordini.serializers.ordini_serializers import OrdineSerializer
 
 # crea i clienti e ne restituisce la lista
 class ClienteListCreateView(generics.ListCreateAPIView):
@@ -231,3 +233,73 @@ class ClientiGustiCreateAPIView(generics.CreateAPIView):
 
     serializer_class = GustiClientiSerializer
     queryset = GustiClienti.objects.all()
+    
+
+class CompilazioneModuloClienteInformazioniView(generics.RetrieveAPIView):
+
+    queryset = Cliente.objects.all()
+    lookup_field = 'id'  # Campo utilizzato per recuperare l'oggetto
+
+    def retrieve(self, request, *args, **kwargs):
+        
+        cliente = self.get_object()
+        cliente_serializer = ClientiSerializer(cliente)
+        cliente_json = cliente_serializer.data
+
+        ordine = Ordine.objects.filter(cliente=cliente).last()
+        ordine_serializer = OrdineSerializer(ordine)
+        ordine_json = ordine_serializer.data
+        
+        clienti_dati = DatiModuloInformazioniClienti.objects.filter(cliente=cliente).last()
+        cliente_dati_serializer = InformazioniClientiSerializer(clienti_dati)
+        cliente_dati_json = cliente_dati_serializer.data
+        
+        lista_patologie =[]
+       
+        for patologie in clienti_dati.patologie.all():
+           
+            lista_patologie.append(patologie.nome)
+       
+
+        data = {
+            'cliente': cliente_json,
+            'ordine': ordine_json,
+            'cliente_data': cliente_dati_json,
+            'lista_patologie': lista_patologie
+           
+        }
+
+        return Response(data)
+
+class CompilazioneModuloClienteAlimentiView(generics.RetrieveAPIView):
+
+    queryset = Cliente.objects.all()
+    lookup_field = 'id'  # Campo utilizzato per recuperare l'oggetto
+
+    def retrieve(self, request, *args, **kwargs):
+        
+        cliente = self.get_object()
+        cliente_serializer = ClientiSerializer(cliente)
+        cliente_json = cliente_serializer.data
+        
+        clienti_gusti = GustiClienti.objects.filter(cliente=cliente)
+        clienti_gusti_serializer = GustiClientiSerializer(clienti_gusti)
+        clienti_gusti_json = clienti_gusti_serializer.data
+        
+        lista_patologie =[]
+       
+        for patologie in clienti_dati.patologie.all():
+           
+            lista_patologie.append(patologie.nome)
+       
+
+        data = {
+            'cliente': cliente_json,
+            
+            'cliente_data': cliente_dati_json,
+            'lista_patologie': lista_patologie
+           
+        }
+
+        return Response(data)
+

@@ -5,6 +5,7 @@ from .apiview import ClienteListCreateView, ClienteRetrieveUpdateAPIView, NuovoC
 from .apiview import CampiMisureAPI
 from .apiview import StatoPesoAPIView
 from .apiview import PatologieListAPIView, AlimentiListAPIView, InformazioniClientiCreateAPIView, InformazioniClientiGustiAPIView, ClientiGustiCreateAPIView
+from .apiview import CompilazioneModuloClienteInformazioniView, CompilazioneModuloClienteAlimentiView
 
 app_name = 'clienti'
 
@@ -35,6 +36,11 @@ urlpatterns = [
          name='cliente_retrieve_update'),
     path('api/campi_misure/', CampiMisureAPI.as_view(), name='campi-modello-api'),
     path('api/stati_peso/', StatoPesoAPIView.as_view(), name='stati_peso'),
+    
+    path('datimoduloinfopdf/<int:id>',
+         CompilazioneModuloClienteInformazioniView.as_view(), name='clienti_info_dettaglipdf'),
+    path('datimoduloalimentipdf/<int:id>',
+         CompilazioneModuloClienteAlimentiView.as_view(), name='clienti_info_dettaglipdf')
     
 
 ]

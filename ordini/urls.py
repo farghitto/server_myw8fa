@@ -2,7 +2,7 @@ from django.urls import path
 
 from .apiview import OrdiniListCreateView, OrdiniListView, OrdiniDetailView, NumeroOrdiniClienteView, OrdineUltimoView, DettagliOrdineView
 from .apiview import CompilazioneModuloClienteOrdineView, ListaOrdiniView
-from .apiview import CompilazioneModuloClienteInformazioniView
+
 app_name = 'ordini'
 
 

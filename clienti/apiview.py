@@ -1,3 +1,4 @@
+import pdb
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
@@ -268,38 +269,30 @@ class CompilazioneModuloClienteInformazioniView(generics.RetrieveAPIView):
             'lista_patologie': lista_patologie
            
         }
-
+        print(data)
         return Response(data)
 
 class CompilazioneModuloClienteAlimentiView(generics.RetrieveAPIView):
 
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     queryset = Cliente.objects.all()
+    serializer_class = ClientiSerializer
     lookup_field = 'id'  # Campo utilizzato per recuperare l'oggetto
 
     def retrieve(self, request, *args, **kwargs):
-        
-        cliente = self.get_object()
-        cliente_serializer = ClientiSerializer(cliente)
-        cliente_json = cliente_serializer.data
-        
-        clienti_gusti = GustiClienti.objects.filter(cliente=cliente)
-        clienti_gusti_serializer = GustiClientiSerializer(clienti_gusti)
-        clienti_gusti_json = clienti_gusti_serializer.data
-        
-        lista_patologie =[]
-       
-        for patologie in clienti_dati.patologie.all():
-           
-            lista_patologie.append(patologie.nome)
-       
+        instance = self.get_object()
+        gusti_queryset = GustiClienti.objects.filter(cliente=instance)
+        gusti_serializer = GustiClientiSerializer(gusti_queryset, many=True).data
+        cliente_serializer = self.get_serializer(instance).data
 
-        data = {
-            'cliente': cliente_json,
-            
-            'cliente_data': cliente_dati_json,
-            'lista_patologie': lista_patologie
-           
+        response_data = {
+            'cliente': cliente_serializer,
+            'gusti_alimenti': gusti_serializer
         }
 
-        return Response(data)
-
+        return Response(response_data)
+    
+   
+   

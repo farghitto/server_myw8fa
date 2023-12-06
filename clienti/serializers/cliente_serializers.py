@@ -50,3 +50,11 @@ class GustiClientiSerializer(serializers.ModelSerializer):
     class Meta:
         model = GustiClienti
         fields = '__all__'
+        
+
+
+        
+
+
+    
+    

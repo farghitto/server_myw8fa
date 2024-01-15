@@ -9,7 +9,9 @@ from rest_framework import generics
 from django.contrib.auth import authenticate
 
 from .models import AnagraficaUtente
+from django.contrib.auth.models import User
 from .serializers.utente_serializers import UtenteSerializer
+from .serializers.user_serializers import UserSerializer
 
 
 class CustomAuthToken(APIView):
@@ -45,3 +47,15 @@ class UtenteListCreateView(generics.RetrieveAPIView):
     queryset = AnagraficaUtente.objects.all()
     serializer_class = UtenteSerializer
     lookup_field = 'utente__id'
+
+
+class CreazioneUtenteView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    
+
+    def create(self, request, *args, **kwargs):
+        response = super().create(request, *args, **kwargs)
+        if response.status_code == status.HTTP_201_CREATED:
+            return Response({"message": "Utente creato con successo"}, status=status.HTTP_201_CREATED)
+        return response

@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'password')  # Aggiungi altri campi se necessario
+        fields = '__all__'  # Aggiungi altri campi se necessario
         extra_kwargs = {'password': {'write_only': True}}  # Impedisci la visualizzazione della password nella risposta
 
     def create(self, validated_data):

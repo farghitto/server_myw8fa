@@ -59,3 +59,25 @@ class CreazioneUtenteView(generics.CreateAPIView):
         if response.status_code == status.HTTP_201_CREATED:
             return Response({"message": "Utente creato con successo"}, status=status.HTTP_201_CREATED)
         return response
+    
+    
+class CreazioneAnagraficaUtenteView(generics.CreateAPIView):
+    queryset = AnagraficaUtente.objects.all()
+    serializer_class = UtenteSerializer
+    
+
+    def create(self, request, *args, **kwargs):
+        # Fasi iniziali, inclusa la deserializzazione dei dati della richiesta
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        
+        # Chiamata a perform_create
+        self.perform_create(serializer)
+
+        # Eventuale risposta HTTP di successo
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+    def perform_create(self, serializer):
+        # Logica personalizzata o manipolazione dei dati prima del salvataggio
+        serializer.save()

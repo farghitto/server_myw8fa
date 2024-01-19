@@ -9,6 +9,7 @@ utente/migrations
 clienti/migrations
 ordini/migrations
 utils/migrations
+calendario/migrations
 serverenv/
 /serverenv/
 servermenv

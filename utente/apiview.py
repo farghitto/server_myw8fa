@@ -1,3 +1,4 @@
+from gc import get_objects
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
@@ -7,11 +8,13 @@ from rest_framework import status
 from rest_framework import generics
 
 from django.contrib.auth import authenticate
+from django.shortcuts import get_object_or_404
 
 from .models import AnagraficaUtente
 from django.contrib.auth.models import User
 from .serializers.utente_serializers import UtenteSerializer
 from .serializers.user_serializers import UserSerializer
+import pdb
 
 
 class CustomAuthToken(APIView):
@@ -69,6 +72,7 @@ class CreazioneAnagraficaUtenteView(generics.CreateAPIView):
     def create(self, request, *args, **kwargs):
         # Fasi iniziali, inclusa la deserializzazione dei dati della richiesta
         serializer = self.get_serializer(data=request.data)
+        
         serializer.is_valid(raise_exception=True)
         
         # Chiamata a perform_create
@@ -80,4 +84,7 @@ class CreazioneAnagraficaUtenteView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         # Logica personalizzata o manipolazione dei dati prima del salvataggio
+      
+        utente =get_object_or_404(User, username= serializer.validated_data['email'] )
+        serializer.validated_data['utente'] = utente
         serializer.save()

@@ -21,6 +21,7 @@ from utente.apiview import CustomAuthToken, LogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('calendario/', include('calendario.urls')),
     path('cliente/', include('clienti.urls')),
     path('listini/', include('listini.urls')),
     path('ordini/', include('ordini.urls')),

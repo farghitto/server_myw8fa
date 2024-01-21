@@ -91,15 +91,15 @@ class AnagraficaUtente(models.Model):
         to='FormulaCentro', on_delete=models.CASCADE, null=True, blank=True)
     pagamento = models.BooleanField(choices=PAGAMENTO_CHOICES, default=False)
     affiliatore = models.ForeignKey("self", on_delete=models.SET(
-        "senza superiore"), null=True, blank=True, related_name='affiliati_anagrafica')
+        "senza superiore"), null=True, blank=True, related_name='affiliati_anagrafica') 
     seguito = models.ForeignKey("self", on_delete=models.SET(
         "senza superiore"), null=True, blank=True, related_name='seguito_anagrafica')
-
+   
     """ Struttura """
     # tipo_struttura = models.ForeignKey(Struttura,on_delete=models.SET_NULL,null=True,blank=True)
-    id_superiore = models.ForeignKey("self", on_delete=models.SET(
+    superiore = models.ForeignKey("self", on_delete=models.SET(
         "senza superiore"), null=True, blank=True, related_name='superiore_anagrafica')
-
+   
     """ Questionario informativo fisco """
     ruolo_altra_azienda = models.BooleanField(default=False)
     imponibile_provvigionale = models.FloatField(null=True, blank=True)
@@ -124,6 +124,13 @@ class AnagraficaUtente(models.Model):
     numero_tesserino = models.IntegerField(null=True, blank=True)
     numero_IVD = models.IntegerField(null=True, blank=True)
 
+    """ informazione su dati myoffice"""
+    id_seguito_intero = models.IntegerField(null=True, blank=True)
+    id_affiliatore_intero = models.IntegerField(null=True, blank=True)
+    id_superiore_intero = models.IntegerField(null=True, blank=True)
+    id_myoffice_intero = models.IntegerField(null=True, blank=True)
+
+    
     def __str__(self):
         return self.cognome + " " + self.nome
 

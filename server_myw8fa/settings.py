@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'utente',
     'utils',
     'listini',
-    'ordini'
+    'ordini',
+    'calendario'
 
 ]
 

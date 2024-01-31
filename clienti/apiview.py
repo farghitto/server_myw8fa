@@ -295,4 +295,31 @@ class CompilazioneModuloClienteAlimentiView(generics.RetrieveAPIView):
         return Response(response_data)
     
    
-   
+
+class ClienteCreateView(generics.CreateAPIView):
+
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    queryset = Cliente.objects.all()
+    serializer_class = ClientiSerializer
+
+    def create(self, request, *args, **kwargs):
+        # Fasi iniziali, inclusa la deserializzazione dei dati della richiesta
+        serializer = self.get_serializer(data=request.data)
+        
+        serializer.is_valid(raise_exception=True)
+        
+        # Chiamata a perform_create
+        self.perform_create(serializer)
+
+        # Eventuale risposta HTTP di successo
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+    def perform_create(self, serializer):
+        # Logica personalizzata o manipolazione dei dati prima del salvataggio
+      
+        consulente =get_object_or_404(User, username= serializer.validated_data['email'] )
+        serializer.validated_data['consulente'] = consulente           
+        serializer.save()

@@ -75,6 +75,10 @@ class Cliente(models.Model):
 
     id_utente_app = models.CharField(max_length=8, null=True, blank=True)
     lingua_utente = models.CharField(max_length=8, null=True, blank=True)
+    
+    """dati myoffice"""
+    id_utente_myoffice = models.CharField(max_length=8, null=True, blank=True)
+    id_consulente_myoffice  = models.CharField(max_length=8, null=True, blank=True)
 
     def __str__(self):
 

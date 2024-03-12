@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .apiview import InserisciMisuraClienteAPIView, MisuraClienteAPIView, MisuraClientePesoInizialeAPIView
-from .apiview import ClienteListCreateView, ClienteRetrieveUpdateAPIView, NuovoClienteAPIView, VerificaDatiCliente
+from .apiview import ClienteListCreateView, ClienteRetrieveUpdateAPIView, NuovoClienteAPIView, VerificaDatiCliente, ClienteCreateView, ClienteUpdateAPIView
 from .apiview import CampiMisureAPI
 from .apiview import StatoPesoAPIView
 from .apiview import PatologieListAPIView, AlimentiListAPIView, InformazioniClientiCreateAPIView, InformazioniClientiGustiAPIView, ClientiGustiCreateAPIView
@@ -19,6 +19,9 @@ urlpatterns = [
          name='cliente_nuvo'),
     path('clientedati/<int:cliente_id>/', VerificaDatiCliente.as_view(),
          name='cliente_dati'),
+    path('crea_cliente/', ClienteCreateView.as_view(),  name='crea_cliente' ),
+    path('aggiornaclientemyoffice/<int:id_utente_myoffice>/', ClienteUpdateAPIView.as_view(),
+         name='cliente_update'),
    
     path('listapatologie/', PatologieListAPIView.as_view(), name='pato-list'),
     path('listaalimenti/', AlimentiListAPIView.as_view(), name='alimenti-list'),

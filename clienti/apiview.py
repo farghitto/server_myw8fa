@@ -307,7 +307,7 @@ class ClienteCreateView(generics.CreateAPIView):
     def create(self, request, *args, **kwargs):
         # Fasi iniziali, inclusa la deserializzazione dei dati della richiesta
         serializer = self.get_serializer(data=request.data)
-        
+       
         serializer.is_valid(raise_exception=True)
         
         # Chiamata a perform_create
@@ -319,7 +319,19 @@ class ClienteCreateView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         # Logica personalizzata o manipolazione dei dati prima del salvataggio
-      
-        consulente =get_object_or_404(User, username= serializer.validated_data['email'] )
+        
+        
+        user =get_object_or_404(User, id= serializer.validated_data['id_consulente_myoffice'] )
+        consulente = get_object_or_404(AnagraficaUtente, utente= user )
         serializer.validated_data['consulente'] = consulente           
         serializer.save()
+        
+        
+class ClienteUpdateAPIView(generics.RetrieveUpdateAPIView):
+
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    queryset = Cliente.objects.all()
+    serializer_class = ClientiSerializer
+    lookup_field = 'id_utente_myoffice'  # Campo utilizzato per recuperare l'oggetto

@@ -5,17 +5,17 @@
 
 # Node artifact files
 
-utente/migrations
-clienti/migrations
-ordini/migrations
-utils/migrations
-calendario/migrations
+utente/migrations/0*
+clienti/migrations/0*
+ordini/migrations/0*
+utils/migrations/0*
+calendario/migrations/0*
 serverenv/
 /serverenv/
 servermenv
 /servermenv/
-listini/migrations
-consulenti/migrations
+listini/migrations/0*
+consulenti/migrations/0*
 static_serve/
 media-serve/
 log/
